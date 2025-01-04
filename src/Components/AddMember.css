@@ -1,14 +1,21 @@
-/* Login page styles */
-.login-container {
-    max-width: 400px;
+/* Add Member Form Styles */
+
+.add-member-container {
+    max-width: 500px;
     margin: 50px auto;
     padding: 20px;
-    background-color: #fff;
+    background-color: #f4f4f9;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
   
-  .login-form {
+  .add-member-container h2 {
+    text-align: center;
+    font-size: 1.8rem;
+    color: #333;
+  }
+  
+  .add-member-container form {
     display: flex;
     flex-direction: column;
   }
@@ -31,5 +38,20 @@
   
   .submit-btn:hover {
     background-color: #45a049;
+  }
+  
+  .add-member-container p {
+    text-align: center;
+    font-size: 1rem;
+    color: #555;
+  }
+  
+  .add-member-container a {
+    color: #4CAF50;
+    text-decoration: none;
+  }
+  
+  .add-member-container a:hover {
+    text-decoration: underline;
   }
   

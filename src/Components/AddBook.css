@@ -1,0 +1,19 @@
+/* Admin pages styles */
+.admin-container {
+    padding: 20px;
+  }
+  
+  .admin-container h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+  
+  .admin-container form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .admin-container .input-field {
+    margin-bottom: 10px;
+  }
+  
