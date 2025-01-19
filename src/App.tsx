@@ -3,7 +3,7 @@ import Home from './pages/Home';
 import AboutUs from './pages/AboutUs';
 import SearchBook from './Components/SearchBook';
 import AddMember from './Components/AddMember';
-import AddBook from './Components/AddBook'; // Assuming you have this component
+import AddBook from './pages/AddBook'; // Assuming you have this component
 import UpdateBook from './Components/UpdateBook'; // Assuming you have this component
 import { AuthProvider, useAuth } from './Utils/AuthContext';
 import Navbar from './pages/Navbar'; // Import the new Navbar component
@@ -40,7 +40,7 @@ const App = () => {
               <Route path="/admin-login-signup" element={<AdminLoginSignUp />} />
               <Route path="/user-login-signup" element={<UserLoginSignUp />} />
               <Route path="/add-member" element={<AddMember />} />
-              <Route path='/addBook' element={<ProtectedRoute adminOnly={true}><AddBook /></ProtectedRoute>} />
+              <Route path="/add-book" element={<ProtectedRoute adminOnly={true}><AddBook /></ProtectedRoute>} />
               <Route path="/update-book" element={<ProtectedRoute adminOnly={true}><UpdateBook /></ProtectedRoute>} />
             </Routes>
           </div>

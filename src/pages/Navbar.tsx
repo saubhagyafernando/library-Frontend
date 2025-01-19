@@ -14,7 +14,7 @@ const Navbar: React.FC = () => {
         <a href="/about">About Us</a>
         <a href="/contact">Contact Us</a>
         <a href="/search-book">Search Book</a>
-        <a href="/addBook">Add Book</a>
+        <a href="/add-book">Add Book</a>
         <a href="/update-book">Update Book</a>
       </div>
     </div>
