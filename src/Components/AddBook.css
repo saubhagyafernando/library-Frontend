@@ -1,19 +1,28 @@
-/* Admin pages styles */
-.admin-container {
-    padding: 20px;
-  }
-  
-  .admin-container h2 {
-    font-size: 2rem;
-    margin-bottom: 20px;
-  }
-  
-  .admin-container form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .admin-container .input-field {
-    margin-bottom: 10px;
-  }
-  
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.btn {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #0056b3;
+}

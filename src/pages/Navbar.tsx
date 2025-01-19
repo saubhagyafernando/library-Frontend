@@ -8,12 +8,13 @@ const Navbar: React.FC = () => {
     <div className="navbar">
       <div className="logo">Library</div>
       <div className="menu">
-        <a href="/">Home</a>
-        <a href="/signup">Signup/Login</a>
+      <a href="/">Home</a>
+        <a href="/user-login-signup">User Signup/Login</a>
+        <a href="/admin-login-signup">Admin Signup/Login</a>
         <a href="/about">About Us</a>
         <a href="/contact">Contact Us</a>
-        <a href="/search">Search Book</a>
-        <a href="/add-book">Add Book</a>
+        <a href="/search-book">Search Book</a>
+        <a href="/addBook">Add Book</a>
         <a href="/update-book">Update Book</a>
       </div>
     </div>
