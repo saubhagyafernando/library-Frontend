@@ -6,6 +6,7 @@ import AddMember from './Components/AddMember';
 import AddBook from './pages/AddBook';
 import UpdateBook from './Components/UpdateBook';
 import { AuthProvider } from './Utils/AuthContext';
+import Slideshow from "./Components/Slideshow";
 import Navbar from './pages/Navbar';
 import Footer from './pages/Footer';
 import AdminLoginSignUp from './Components/AdminLoginSignUp';
