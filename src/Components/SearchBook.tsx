@@ -1,12 +1,32 @@
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import {getBook} from '../service/BookService';
 
-const SearchBook = () => {
+interface Book {
+  bookTittle: string;
+  isbn: string;
+  publicationDate: string;
+  subject: string;
+  status: number;
+}
+
+const SearchBook:React.FC = () => {
   const [query, setQuery] = useState('');
-  const [results, setResults] = useState<string[]>([]);
+  const [books, setBook] = useState<Book[]>([]);
+  useEffect(() => {
+    const fetchBooks = async () => {
+      try{
+      const books = await getBook();
+      setBook(books);
+      } catch (error) {
+        console.error('Failed to fetch books:', error);
+      }
+    };
+    fetchBooks();
+  }, []);
 
   const handleSearch = () => {
     // Mock search results
-    setResults(['Book 1', 'Book 2', 'Book 3']);
+    const results = books.filter((book) => book.bookTittle.includes(query));
   };
 
   return (
@@ -19,11 +39,30 @@ const SearchBook = () => {
         onChange={(e) => setQuery(e.target.value)}
       />
       <button onClick={handleSearch}>Search</button>
-      <ul>
-        {results.map((book, index) => (
-          <li key={index}>{book}</li>
-        ))}
-      </ul>
+      
+      <h3 className="text-primary">Book List</h3>
+      <table className="table table-bordered table-striped">
+        <thead className="table-dark">
+          <tr>
+            <th>Title</th>
+            <th>ISBN</th>
+            <th>Publication Date</th>
+            <th>Subject</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {books.map((book, index) => (
+            <tr key={index}>
+              <td>{book.bookTittle}</td>
+              <td>{book.isbn}</td>
+              <td>{book.publicationDate}</td>
+              <td>{book.subject}</td>
+              <td>{book.status}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };

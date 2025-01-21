@@ -1,6 +1,5 @@
-
-// Navbar.tsx
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Navbar.css';
 
 const Navbar: React.FC = () => {
@@ -8,20 +7,17 @@ const Navbar: React.FC = () => {
     <div className="navbar">
       <div className="logo">Library</div>
       <div className="menu">
-      <a href="/">Home</a>
-        <a href="/user-login-signup">User Signup/Login</a>
-        <a href="/admin-login-signup">Admin Signup/Login</a>
-        <a href="/about">About Us</a>
-        <a href="/contact">Contact Us</a>
-        <a href="/search-book">Search Book</a>
-        <a href="/add-book">Add Book</a>
-        <a href="/update-book">Update Book</a>
+        <Link to="/">Home</Link>
+        <Link to="/about">About Us</Link>
+        <Link to="/contact">Contact Us</Link>
+        <Link to="/search-book">Search Book</Link>
+        <Link to="/user-login-signup">User Signup/Login</Link>
+        <Link to="/admin-login-signup">Admin Signup/Login</Link>
+        <Link to="/add-book">Add Book</Link>
+        <Link to="/update-book">Update Book</Link>
       </div>
     </div>
   );
 };
 
 export default Navbar;
-
-
-
