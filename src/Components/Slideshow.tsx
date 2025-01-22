@@ -2,7 +2,12 @@ import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import "./Slideshow.css"; // CSS for additional styling
+import "./Slideshow.css"; // Custom CSS for styling
+
+// Import your images
+import Library1 from "../assets/Library1.jpg";
+import Library2 from "../assets/Library2.jpg";
+import Library3 from "../assets/Library3.jpg";
 
 const Slideshow: React.FC = () => {
   const settings = {
@@ -15,21 +20,22 @@ const Slideshow: React.FC = () => {
     autoplaySpeed: 3000,
   };
 
-  const images = [
-    //Imagess\Library1.jpg",
-    "C:\Users\Saubagya\Desktop\images\Imagess\Library2.jpg",
-    "C:\Users\Saubagya\Desktop\images\Imagess\Library33.jpg",
+  const slides = [
+    { src: Library1, alt: "Library 1" },
+    { src: Library2, alt: "Library 2" },
+    { src: Library3, alt: "Library 3" },
   ];
 
   return (
     <div className="slideshow-container">
       <Slider {...settings}>
-        {images.map((image, index) => (
-          <div key={index}>
-            <div
-              className="slide"
-              style={{ backgroundImage: `url(${image})` }}
-            ></div>
+        {slides.map((slide, index) => (
+          <div key={index} className="slide">
+            <img
+              src={slide.src}
+              alt={slide.alt}
+              style={{ width: "100%", height: "400px", objectFit: "cover" }}
+            />
           </div>
         ))}
       </Slider>
