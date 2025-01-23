@@ -1,12 +1,12 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Home from './pages/Home';
 import AboutUs from './pages/AboutUs';
+import ContactUs from './pages/Contactus'; 
 import SearchBook from './Components/SearchBook';
 import AddMember from './Components/AddMember';
 import AddBook from './pages/AddBook';
 import UpdateBook from './Components/UpdateBook';
 import { AuthProvider } from './Utils/AuthContext';
-import Slideshow from "./Components/Slideshow";
 import Navbar from './pages/Navbar';
 import Footer from './pages/Footer';
 import AdminLoginSignUp from './Components/AdminLoginSignUp';
@@ -14,7 +14,6 @@ import UserLoginSignUp from './Components/UserLoginSignUp';
 import './assets/Library1.jpg';
 import './assets/Library2.jpg';
 import './assets/Library3.jpg';
-
 
 const App = () => {
   return (
@@ -26,7 +25,7 @@ const App = () => {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<AboutUs />} />
-              <Route path="/contact" element={<div>Contact Us Page</div>} />
+              <Route path="/contact" element={<ContactUs />} /> {/* Updated to use the ContactUs component */}
               <Route path="/search-book" element={<SearchBook />} />
               <Route path="/admin-login-signup" element={<AdminLoginSignUp />} />
               <Route path="/user-login-signup" element={<UserLoginSignUp />} />

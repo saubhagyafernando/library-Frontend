@@ -1,25 +1,32 @@
-.slideshow-container {
-  width: 100%;
-  margin: auto;
-  overflow: hidden;
+.search-book-container {
+  padding: 20px;
 }
 
-.slide {
+.search-bar input {
   width: 100%;
-  height: 400px; /* Adjust this height as needed */
-  background-size: cover;
-  background-position: center;
-}
-a.slideshow-container {
-  width: 100%;
-  margin: auto;
-  overflow: hidden;
+  padding: 10px;
+  margin-bottom: 10px;
 }
 
-.slide img {
-  display: block;
-  width: 100%;
-  height: 400px; /* Adjust height as needed */
-  object-fit: cover;
-  border-radius: 10px; /* Optional: Adds rounded corners */
+.category-buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.category-box {
+  cursor: pointer;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-align: center;
+  transition: background-color 0.3s;
+}
+
+.category-box:hover {
+  background-color: #f0f0f0;
+}
+
+.button-row button {
+  margin-right: 10px;
 }

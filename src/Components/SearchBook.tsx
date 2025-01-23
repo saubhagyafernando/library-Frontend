@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { getBook } from '../service/BookService';
 import { FaBook, FaScroll, FaChalkboardTeacher, FaBookOpen, FaRedo } from 'react-icons/fa';
 import './SearchBook.css';
 
 interface Book {
-  bookTittle: string;
+  bookTitle: string;
   isbn: string;
   publicationDate: string;
   subject: string;
@@ -13,16 +12,17 @@ interface Book {
 
 const SearchBook: React.FC = () => {
   const [query, setQuery] = useState('');
-  const [books, setBook] = useState<Book[]>([]);
+  const [books, setBooks] = useState<Book[]>([]);
   const [filteredBooks, setFilteredBooks] = useState<Book[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
 
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const books = await getBook();
-        setBook(books);
-        setFilteredBooks(books); // Initially show all books
+        const response = await fetch('http://localhost:5000/api/books'); // Update with your API endpoint
+        const data = await response.json();
+        setBooks(data);
+        setFilteredBooks(data); // Initially show all books
       } catch (error) {
         console.error('Failed to fetch books:', error);
       }
@@ -31,8 +31,8 @@ const SearchBook: React.FC = () => {
   }, []);
 
   const handleSearch = () => {
-    const results = books.filter((book) => 
-      book.bookTittle.toLowerCase().includes(query.toLowerCase()) && 
+    const results = books.filter((book) =>
+      book.bookTitle.toLowerCase().includes(query.toLowerCase()) &&
       (selectedCategory === 'all' || book.subject.toLowerCase() === selectedCategory.toLowerCase())
     );
     setFilteredBooks(results);
@@ -41,7 +41,7 @@ const SearchBook: React.FC = () => {
   const handleCategorySelect = (category: string) => {
     setSelectedCategory(category);
     const results = books.filter((book) =>
-      (category === 'all' || book.subject.toLowerCase() === category.toLowerCase())
+      category === 'all' || book.subject.toLowerCase() === category.toLowerCase()
     );
     setFilteredBooks(results);
   };
@@ -55,7 +55,7 @@ const SearchBook: React.FC = () => {
   return (
     <div className="search-book-container">
       <h2 className="text-center my-4">Search Book</h2>
-      
+
       <div className="search-bar mb-4">
         <input
           type="text"
@@ -105,7 +105,7 @@ const SearchBook: React.FC = () => {
           {filteredBooks.length > 0 ? (
             filteredBooks.map((book, index) => (
               <tr key={index}>
-                <td>{book.bookTittle}</td>
+                <td>{book.bookTitle}</td>
                 <td>{book.isbn}</td>
                 <td>{book.publicationDate}</td>
                 <td>{book.subject}</td>
