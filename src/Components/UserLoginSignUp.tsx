@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../Utils/AuthContext';
 import './LoginSignUp.css';
 
@@ -14,6 +15,7 @@ const UserLoginSignUp: React.FC = () => {
   const [course, setCourse] = useState('');
   const [yearOfEnrollment, setYearOfEnrollment] = useState('');
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const toggleForm = () => {
     setIsLogin(!isLogin);
@@ -26,7 +28,8 @@ const UserLoginSignUp: React.FC = () => {
       return;
     }
     setError('');
-    login(false); // Log in as user
+    login(false); 
+    navigate('/search-book');// Log in as user
   };
 
   return (

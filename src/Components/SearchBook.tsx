@@ -3,7 +3,7 @@ import { FaBook, FaScroll, FaChalkboardTeacher, FaBookOpen, FaRedo } from 'react
 import './SearchBook.css';
 
 interface Book {
-  bookTitle: string;
+  bookTittle: string;
   isbn: string;
   publicationDate: string;
   subject: string;
@@ -17,31 +17,36 @@ const SearchBook: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
 
   useEffect(() => {
-    const fetchBooks = async () => {
-      try {
-        const response = await fetch('http://localhost:5000/api/books'); // Update with your API endpoint
-        const data = await response.json();
-        setBooks(data);
-        setFilteredBooks(data); // Initially show all books
-      } catch (error) {
-        console.error('Failed to fetch books:', error);
-      }
-    };
     fetchBooks();
   }, []);
 
+  const fetchBooks = async () => {
+    try {
+      const response = await fetch('http://localhost:8081/api/book');  // Updated API endpoint
+      if (!response.ok) {
+        throw new Error('Failed to fetch data');
+      }
+      const data: Book[] = await response.json();
+      setBooks(data);
+      setFilteredBooks(data); // Initially show all books
+    } catch (error) {
+      console.error('Failed to fetch books:', error);
+    }
+  };
+
   const handleSearch = () => {
-    const results = books.filter((book) =>
-      book.bookTitle.toLowerCase().includes(query.toLowerCase()) &&
-      (selectedCategory === 'all' || book.subject.toLowerCase() === selectedCategory.toLowerCase())
+    const results = books.filter(
+      (book) =>
+        book.bookTittle.toLowerCase().includes(query.toLowerCase()) &&
+        (selectedCategory === 'all' || book.subject.toLowerCase() === selectedCategory.toLowerCase())
     );
     setFilteredBooks(results);
   };
 
   const handleCategorySelect = (category: string) => {
     setSelectedCategory(category);
-    const results = books.filter((book) =>
-      category === 'all' || book.subject.toLowerCase() === category.toLowerCase()
+    const results = books.filter(
+      (book) => category === 'all' || book.subject.toLowerCase() === category.toLowerCase()
     );
     setFilteredBooks(results);
   };
@@ -105,11 +110,11 @@ const SearchBook: React.FC = () => {
           {filteredBooks.length > 0 ? (
             filteredBooks.map((book, index) => (
               <tr key={index}>
-                <td>{book.bookTitle}</td>
+                <td>{book.bookTittle}</td>
                 <td>{book.isbn}</td>
                 <td>{book.publicationDate}</td>
                 <td>{book.subject}</td>
-                <td>{book.status}</td>
+                <td>{book.status === 1 ? 'Available' : 'Unavailable'}</td>
               </tr>
             ))
           ) : (
