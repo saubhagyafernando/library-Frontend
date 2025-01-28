@@ -14,7 +14,7 @@ const AdminLoginSignUp: React.FC = () => {
     event.preventDefault();
     setError('');
     login(true); // Log in as admin
-    navigate('/add-book'); // Redirect to admin dashboard
+    navigate('/update-list')
   };
 
   return (

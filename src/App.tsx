@@ -6,7 +6,7 @@ import ContactUs from './pages/Contactus';
 import SearchBook from './Components/SearchBook';
 import AddMember from './Components/AddMember';
 import AddBook from './pages/AddBook';
-import UpdateBook from './Components/UpdateBook';
+import UpdateList from './Components/UpdateList';
 import { AuthProvider } from './Utils/AuthContext';
 import Navbar from './pages/Navbar';
 import Footer from './pages/Footer';
@@ -32,7 +32,8 @@ const App = () => {
               <Route path="/user-login-signup" element={<UserLoginSignUp />} />
               <Route path="/add-member" element={<AddMember />} />
               <Route path="/add-book" element={<AddBook />} />
-              <Route path="/update-book" element={<UpdateBook />} />
+              <Route path="/update-book/${id}" element={<AddBook />} />
+              <Route path="/update-list" element={<UpdateList />} />
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>
           </div>
