@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getBookById, updateBook, addBook } from '../service/BookService';
-import './AddBook.css'; // Adjust the import based on your project structure
+import { getBookById, updateBook, addBook } from '../service/BookService'; // Adjust the import based on your project structure
 
 const AddBook: React.FC = () => {
   const [bookID, setBookId] = useState('');
   const [bookTittle, setTitle] = useState('');
-  const [isbn, setIsbn] = useState<number | string>('');
+  const [isbn, setIsbn] = useState('');
   const [publicationDate, setPublicationDate] = useState('');
   const [subject, setSubject] = useState('');
-  const [status, setStatus] = useState<number | string>('');
+  const [status, setStatus] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
 
@@ -19,15 +18,14 @@ const AddBook: React.FC = () => {
     if (id) {
       const fetchBooks = async () => {
         try {
-          const book = await getBookById(Number(id));
+          const book = await getBookById(id);
           setBookId(String(book.bookID));
           setTitle(book.bookTittle);
-          setIsbn(Number(book.isbn));
+          setIsbn(book.isbn.toString()); // Convert isbn to string
           setPublicationDate(book.publicationDate);
           setSubject(book.subject);
-          setStatus(Number(book.status));
+          setStatus(book.status.toString()); // Convert status to string
         } catch (error) {
-          console.error('Failed to fetch book:', error);
           setErrorMessage('An error occurred while fetching the book.');
         }
       };
@@ -61,46 +59,58 @@ const AddBook: React.FC = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!bookTittle || !isbn || !publicationDate || !subject || !status) {
+    if (!bookID || !bookTittle || !isbn || !publicationDate || !subject || !status) {
       setErrorMessage('All fields are required!');
       return;
     }
-    if (!/^\d+$/.test(status.toString())) {
+    if (!/^\d+$/.test(status)) {
       setErrorMessage('Number Of Book must be a numeric value!');
       return;
     }
-    if (!/^\d+$/.test(isbn.toString())) {
+    if (!/^\d+$/.test(isbn)) {
       setErrorMessage('Book of isbn must be a numeric value!');
       return;
     }
 
     const book = {
-      bookID: id ? id : '', // Ensure bookID is present
+      bookID: id || '', // Ensure bookID is always a string
       bookTittle: bookTittle,
-      isbn: new Int32Array([parseInt(isbn.toString(), 10)]), // Convert isbn to Int32List
+      isbn: new Int32Array([parseInt(isbn, 10)]), // Convert isbn to Int32List
       publicationDate: new Date(publicationDate), // Convert publicationDate to Date
       subject: subject,
-      status: new Int32Array([parseInt(status.toString(), 10)]) // Convert status to Int32List
+      status: new Int32Array([parseInt(status, 10)]) // Convert status to Int32List
     };
+
+    console.log('Submitting book:', book); // Log the payload
 
     try {
       if (id) {
-        await updateBook(Number(id), book);
+        await updateBook(id, book);
       } else {
         await addBook(book);
       }
-      navigate('/');
+      navigate('/update-list');
     } catch (error) {
-      console.error('Failed to add book:', error);
       setErrorMessage('An error occurred while saving the book.');
     }
   };
 
   return (
     <div className="container mt-3">
-      <h2 className="text-primary text-center">Add Book</h2>
+      <h2 className="text-primary text-center">{id ? 'Update Book' : 'Add Book'}</h2>
       {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
       <form onSubmit={handleSubmit} className="card p-3 shadow">
+        <div className="form-group mb-3">
+          <label htmlFor="bookID">ID:</label>
+          <input
+          type="text"
+          id="bookID"
+          className="form-control"
+          value={bookID}
+          onChange={handleChangeBookId}
+          required
+        />
+        </div>
         <div className="form-group mb-3">
           <label htmlFor="bookTittle">Title:</label>
           <input
@@ -110,7 +120,6 @@ const AddBook: React.FC = () => {
             value={bookTittle}
             onChange={handleChangedBookTitle}
             required
-            disabled={!!id}
           />
         </div>
         <div className="form-group mb-3">

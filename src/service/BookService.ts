@@ -11,17 +11,19 @@ export const addBook = async (book: {bookID:string; bookTittle: string; isbn: In
     return response.data;
 };
 
-export const getBookById = async (bookID: number) => {
+export const getBookById = async (bookID: string) => {
     const response = await axios.get(`${API_URL}/${bookID}`);
     return response.data;
 };
 
-export const updateBook = async (bookID: number, book: {bookID:string; bookTittle: string; isbn: Int32List;publicationDate: Date;subject: string;status:Int32List}) => {
+export const updateBook = async (bookID: string, book: {bookID:string; bookTittle: string; isbn: Int32List;publicationDate: Date;subject: string;status:Int32List}) => {
         const response = await axios.put(`${API_URL}/${bookID}`, book);
         return response.data;
 };
 
-export const deleteBook = async (bookID: number) => {
+export const deleteBook = async (bookID: string) => {
     const response = await axios.delete(`${API_URL}/${bookID}`);
     return response.data;
 };
+// Removed the unused put function
+

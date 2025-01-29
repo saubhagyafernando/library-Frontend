@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {getBook, deleteBook} from '../service/BookService';
 import { useNavigate } from 'react-router-dom';
 import './UpdateList.css';
 
 interface Book {
-  id: string;
   bookID: string;
   bookTittle: string;
   isbn: number;
@@ -15,7 +14,7 @@ interface Book {
 
 const UpdateList: React.FC = () => {
   const [] = useState('');
-  const [books, setBooks] = React.useState<Book[]>([]);
+  const [books, setBooks] = useState<Book[]>([]);
   const [bookTittle, setTitle] = useState('');
   const [availability, setAvailability] = useState(true);
 
@@ -24,7 +23,7 @@ const UpdateList: React.FC = () => {
     alert(`Book "${bookTittle}" updated with availability: ${availability}`);
   };
 
-  React.useEffect(() =>{
+  useEffect(() =>{
     const fetchBooks = async () =>{
       try{
         const book = await getBook();
@@ -43,12 +42,14 @@ const UpdateList: React.FC = () => {
     };
 
   const handleUpdate = (id: string) => {
+    console.log(`Updating book with id: ${id}`);
     navigate(`/update-book/${id}`);
   }
 
   const handleDelete = async(id:string)=>{
     try{
-      await deleteBook(Number(id));
+      console.log(`Deleting book with id: ${id}`);
+      await deleteBook(id);
       setBooks((prev) => prev.filter((book) => book.bookID !== id));
     }catch (error){
       console.error('Failed to delete book:',error);
@@ -81,10 +82,10 @@ const UpdateList: React.FC = () => {
                 <td>{book.subject}</td>
                 <td>{book.status>0 ? 'Available' : 'Unavailable'}</td>
                 <td>
-                <button className="btn btn-primary me-2" onClick={() => handleUpdate(book.id)}>
+                <button className="btn btn-primary me-2" onClick={() => handleUpdate(book.bookID)}>
                 Update
                 </button>
-                <button className="btn btn-danger" onClick={() => handleDelete(book.id)}>
+                <button className="btn btn-danger" onClick={() => handleDelete(book.bookID)}>
                 Delete
                 </button>
                 </td>
