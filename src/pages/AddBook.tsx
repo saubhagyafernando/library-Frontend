@@ -26,6 +26,7 @@ const AddBook: React.FC = () => {
           setSubject(book.subject);
           setStatus(book.status.toString()); // Convert status to string
         } catch (error) {
+          console.error('Failed to fetch book:', error);
           setErrorMessage('An error occurred while fetching the book.');
         }
       };
@@ -73,15 +74,15 @@ const AddBook: React.FC = () => {
     }
 
     const book = {
-      bookID: id || '', // Ensure bookID is always a string
+      bookID: bookID , // Ensure bookID is always a string
       bookTittle: bookTittle,
-      isbn: new Int32Array([parseInt(isbn, 10)]), // Convert isbn to Int32List
+      isbn: parseInt(isbn, 10), // Convert isbn to Int32List
       publicationDate: new Date(publicationDate), // Convert publicationDate to Date
       subject: subject,
-      status: new Int32Array([parseInt(status, 10)]) // Convert status to Int32List
+      status: parseInt(status, 10) // Convert status to Int32List
     };
 
-    console.log('Submitting book:', book); // Log the payload
+    console.log({bookID,bookTittle,isbn,publicationDate,subject,status}); // Log the payload
 
     try {
       if (id) {
@@ -91,6 +92,7 @@ const AddBook: React.FC = () => {
       }
       navigate('/update-list');
     } catch (error) {
+      console.error('Failed to add book:', error);
       setErrorMessage('An error occurred while saving the book.');
     }
   };
@@ -100,17 +102,17 @@ const AddBook: React.FC = () => {
       <h2 className="text-primary text-center">{id ? 'Update Book' : 'Add Book'}</h2>
       {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
       <form onSubmit={handleSubmit} className="card p-3 shadow">
-        <div className="form-group mb-3">
-          <label htmlFor="bookID">ID:</label>
-          <input
+      <div className="form-group mb-3">
+        <label htmlFor="bookID">ID</label>
+        <input
           type="text"
           id="bookID"
           className="form-control"
           value={bookID}
           onChange={handleChangeBookId}
           required
-        />
-        </div>
+          />
+      </div>
         <div className="form-group mb-3">
           <label htmlFor="bookTittle">Title:</label>
           <input
@@ -125,7 +127,7 @@ const AddBook: React.FC = () => {
         <div className="form-group mb-3">
           <label htmlFor="isbn">ISBN:</label>
           <input
-            type="text"
+            type="number"
             id="isbn"
             className="form-control"
             value={isbn}

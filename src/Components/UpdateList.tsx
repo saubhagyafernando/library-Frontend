@@ -15,15 +15,8 @@ interface Book {
 const UpdateList: React.FC = () => {
   const [] = useState('');
   const [books, setBooks] = useState<Book[]>([]);
-  const [bookTittle, setTitle] = useState('');
-  const [availability, setAvailability] = useState(true);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    alert(`Book "${bookTittle}" updated with availability: ${availability}`);
-  };
-
-  useEffect(() =>{
+  React.useEffect(() =>{
     const fetchBooks = async () =>{
       try{
         const book = await getBook();
@@ -93,14 +86,6 @@ const UpdateList: React.FC = () => {
             ))}
         </tbody>
       </table>
-      <h2>Update Book</h2>
-      <form onSubmit={handleSubmit}>
-        <label>Title:</label>
-        <input type="text" value={bookTittle} onChange={(e) => setTitle(e.target.value)} required />
-        <label>Available:</label>
-        <input type="checkbox" checked={availability} onChange={(e) => setAvailability(e.target.checked)} />
-        <button type="submit">Update Book</button>
-      </form>
     </div>
   );
 };
