@@ -12,9 +12,9 @@ import Navbar from './pages/Navbar';
 import Footer from './pages/Footer';
 import AdminLoginSignUp from './Components/AdminLoginSignUp';
 import UserLoginSignUp from './Components/UserLoginSignUp';
-import './assets/Library1.jpg';
-import './assets/Library2.jpg';
-import './assets/Library3.jpg';
+// import './assets/Library1.jpg';
+// import './assets/Library2.jpg';
+// import './assets/Library3.jpg';
 
 const App: React.FC = () => {
   return (

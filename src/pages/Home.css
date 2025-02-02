@@ -14,3 +14,17 @@
   color: #555;
   margin-top: 20px;
 }
+
+.slideshow img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.slideshow {
+  width: 100%;
+  max-height: 500px; /* Adjust based on your layout */
+  overflow: hidden;
+  position: relative;
+}
+
