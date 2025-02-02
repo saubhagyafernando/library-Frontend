@@ -4,8 +4,8 @@ import { useAuth } from '../Utils/AuthContext';
 import './LoginSignUp.css';
 
 const UserLoginSignUp: React.FC = () => {
-  const [isLogin, setIsLogin] = useState(true);
-  const { login } = useAuth();
+  const [isLogin, setIsLogin] = useState(true); // Toggle between login/signup form
+  const { login } = useAuth(); // Access login function from context
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -15,21 +15,42 @@ const UserLoginSignUp: React.FC = () => {
   const [course, setCourse] = useState('');
   const [yearOfEnrollment, setYearOfEnrollment] = useState('');
   const [error, setError] = useState('');
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // For page navigation
 
+  // Toggle between login and signup forms
   const toggleForm = () => {
     setIsLogin(!isLogin);
   };
 
-  const handleSubmit = (event: React.FormEvent) => {
+  // Handle form submission
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+
     if (!isLogin && password !== confirmPassword) {
       setError('Passwords do not match');
       return;
     }
+
     setError('');
-    login(false); 
-    navigate('/search-book');// Log in as user
+
+    // Hardcoded credentials for testing
+    const testEmail = 'testuser@example.com';
+    const testPassword = 'testpassword123';
+
+    // Handle login logic
+    if (isLogin) {
+      if (email === testEmail && password === testPassword) {
+        // Successful login
+        login(true); // Assuming the login function returns true upon success
+        navigate('/search-book'); // Navigate to the search book page after login
+      } else {
+        setError('Invalid email or password');
+      }
+    } else {
+      // Handle sign-up logic (e.g., send user data to the backend)
+      login(false); // Register the user
+      navigate('/search-book'); // Navigate to the search book page after sign-up
+    }
   };
 
   return (
@@ -37,6 +58,7 @@ const UserLoginSignUp: React.FC = () => {
       <div className="form-container">
         <h2>{isLogin ? 'User Login' : 'User Sign Up'}</h2>
         <form onSubmit={handleSubmit}>
+          {/* Show additional fields for sign-up only */}
           {!isLogin && (
             <>
               <div className="form-group">
@@ -107,6 +129,8 @@ const UserLoginSignUp: React.FC = () => {
               </div>
             </>
           )}
+
+          {/* Common fields for both login and sign-up */}
           <div className="form-group">
             <label htmlFor="email">Email</label>
             <input
@@ -129,11 +153,17 @@ const UserLoginSignUp: React.FC = () => {
               required
             />
           </div>
+
+          {/* Error message display */}
           {error && <p className="error">{error}</p>}
+
+          {/* Submit button */}
           <button type="submit" className="btn btn-primary">
             {isLogin ? 'Login' : 'Sign Up'}
           </button>
         </form>
+
+        {/* Toggle between login and sign-up */}
         <button onClick={toggleForm} className="btn btn-link">
           {isLogin ? 'Don\'t have an account? Sign Up' : 'Already have an account? Login'}
         </button>

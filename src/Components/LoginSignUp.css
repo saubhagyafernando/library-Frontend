@@ -4,6 +4,12 @@
   padding: 20px;
 }
 
+.login-container h2 {
+  text-align: center;
+  font-size: 1.8rem;
+  color: #333;
+}
+
 .form-container {
   background: #fff;
   padding: 20px;

@@ -16,31 +16,28 @@ import './assets/Library1.jpg';
 import './assets/Library2.jpg';
 import './assets/Library3.jpg';
 
-const App = () => {
+const App: React.FC = () => {
   return (
-    <AuthProvider>
-      <Router>
-        <div className="d-flex flex-column min-vh-100">
-          <Navbar />
-          <div className="flex-grow-1 main-content">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/about" element={<AboutUs />} />
-              <Route path="/contact" element={<ContactUs />} /> {/* Updated to use the ContactUs component */}
-              <Route path="/search-book" element={<SearchBook />} />
-              <Route path="/admin-login-signup" element={<AdminLoginSignUp />} />
-              <Route path="/user-login-signup" element={<UserLoginSignUp />} />
-              <Route path="/add-member" element={<AddMember />} />
-              <Route path="/add-book" element={<AddBook />} />
-              <Route path="/update-book" element={<UpdateBook />} />
-              <Route path="*" element={<Navigate to="/" />} />
-            </Routes>
-          </div>
-          <Footer />
-        </div>
-      </Router>
-    </AuthProvider>
+    <Router>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/user-login-signup" element={<UserLoginSignUp />} />
+        {/* Admin Pages (Only Accessible If Logged In) */}
+        <Route path="/about" element={<AboutUs />} />
+        <Route path="/contact" element={<ContactUs />} />
+        <Route path="/search-book" element={<SearchBook />} />
+        
+        <Route path="/admin-login" element={<AdminLoginSignUp />} />
+        
+        {/* Admin Pages (Only Accessible If Logged In) */}
+        <Route path="/add-book" element={<AddBook />} />
+        <Route path="/update-book" element={<UpdateBook />} />
+        <Route path="/add-member" element={<AddMember />} />
+      </Routes>
+    </Router>
   );
 };
 
 export default App;
+
