@@ -1,19 +1,21 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { addUser } from '../service/MemberService';
 import { useAuth } from '../Utils/AuthContext';
 import './LoginSignUp.css';
 
 const UserLoginSignUp: React.FC = () => {
   const [isLogin, setIsLogin] = useState(true);
   const { login } = useAuth();
+  const [userID, setUserID] = useState('');
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [userPassword, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+  const [userFirstName, setFirstName] = useState('');
+  const [UserLastName, setLastName] = useState('');
   const [department, setDepartment] = useState('');
   const [course, setCourse] = useState('');
-  const [yearOfEnrollment, setYearOfEnrollment] = useState('');
+  const [YearOfEnrollment, setYearOfEnrollment] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
@@ -21,15 +23,62 @@ const UserLoginSignUp: React.FC = () => {
     setIsLogin(!isLogin);
   };
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleChangeEmail = (event:React.ChangeEvent<HTMLInputElement>) =>{
+    setEmail(event.target.value);
+  }
+
+  const handleChangeFirstName = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFirstName(event.target.value);
+  };
+
+  const handleChangeLastName = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setLastName(event.target.value);
+  }; 
+
+  const handleChangePassWord = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(event.target.value);
+  }
+
+  const handleChangeDepartment = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setDepartment(event.target.value);
+  }
+
+  const handleCHangeCourse = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCourse(event.target.value);
+  }
+
+  const handleChangeYearOfEnrollment = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setYearOfEnrollment(event.target.value);
+  }
+  
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!isLogin && password !== confirmPassword) {
+    if (!isLogin && userPassword !== confirmPassword) {
       setError('Passwords do not match');
       return;
     }
-    setError('');
+    if (!email || !userFirstName || !UserLastName || !course || !department || !YearOfEnrollment || !userPassword){
+      setError('All fields are required!');
+      return;
+    }
+    try{
+    await addUser({
+      userFirstName,
+      UserLastName,
+      email,
+      course,
+      department,
+      userPassword,
+      YearOfEnrollment: Number(YearOfEnrollment),
+      id: ''
+    })
     login(false); 
     navigate('/search-book');// Log in as user
+    } catch (error) {
+      console.error('Failed to add user:', error);
+      setError('An error occurred while saving the user.');
+    }
   };
 
   return (
@@ -40,24 +89,24 @@ const UserLoginSignUp: React.FC = () => {
           {!isLogin && (
             <>
               <div className="form-group">
-                <label htmlFor="firstName">First Name</label>
+                <label htmlFor="userFirstName">First Name</label>
                 <input
                   type="text"
-                  id="firstName"
+                  id="userFirstName"
                   className="form-control"
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
+                  value={userFirstName}
+                  onChange={handleChangeFirstName}
                   required
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="lastName">Last Name</label>
+                <label htmlFor="UserLastName">Last Name</label>
                 <input
                   type="text"
-                  id="lastName"
+                  id="UserLastName"
                   className="form-control"
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
+                  value={UserLastName}
+                  onChange={handleChangeLastName}
                   required
                 />
               </div>
@@ -68,7 +117,7 @@ const UserLoginSignUp: React.FC = () => {
                   id="department"
                   className="form-control"
                   value={department}
-                  onChange={(e) => setDepartment(e.target.value)}
+                  onChange={handleChangeDepartment}
                   required
                 />
               </div>
@@ -79,18 +128,18 @@ const UserLoginSignUp: React.FC = () => {
                   id="course"
                   className="form-control"
                   value={course}
-                  onChange={(e) => setCourse(e.target.value)}
+                  onChange={handleCHangeCourse}
                   required
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="yearOfEnrollment">Year of Enrollment</label>
+                <label htmlFor="YearOfEnrollment">Year of Enrollment</label>
                 <input
                   type="number"
-                  id="yearOfEnrollment"
+                  id="YearOfEnrollment"
                   className="form-control"
-                  value={yearOfEnrollment}
-                  onChange={(e) => setYearOfEnrollment(e.target.value)}
+                  value={YearOfEnrollment}
+                  onChange={handleChangeYearOfEnrollment}
                   required
                 />
               </div>
@@ -101,7 +150,7 @@ const UserLoginSignUp: React.FC = () => {
                   id="confirmPassword"
                   className="form-control"
                   value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  onChange={handleChangePassWord}
                   required
                 />
               </div>
@@ -114,18 +163,18 @@ const UserLoginSignUp: React.FC = () => {
               id="email"
               className="form-control"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={handleChangeEmail}
               required
             />
           </div>
           <div className="form-group">
-            <label htmlFor="password">Password</label>
+            <label htmlFor="userPassword">Password</label>
             <input
               type="password"
-              id="password"
+              id="userPassword"
               className="form-control"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={userPassword}
+              onChange={handleChangePassWord}
               required
             />
           </div>
