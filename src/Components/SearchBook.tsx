@@ -114,7 +114,7 @@ const SearchBook: React.FC = () => {
                 <td>{book.isbn}</td>
                 <td>{book.publicationDate}</td>
                 <td>{book.subject}</td>
-                <td>{book.status === 1 ? 'Available' : 'Unavailable'}</td>
+                <td>{book.status > 0 ? 'Available' : 'Unavailable'}</td>
               </tr>
             ))
           ) : (

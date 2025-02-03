@@ -8,6 +8,7 @@ import "./Slideshow.css"; // Custom CSS for styling
 import Library1 from "../assets/Library1.jpg";
 import Library2 from "../assets/Library2.jpg";
 import Library3 from "../assets/Library3.jpg";
+import Library from "../assets/library.jpg";
 
 const Slideshow: React.FC = () => {
   const settings = {
@@ -24,6 +25,8 @@ const Slideshow: React.FC = () => {
     { src: Library1, alt: "Library 1" },
     { src: Library2, alt: "Library 2" },
     { src: Library3, alt: "Library 3" },
+    { src: Library,  alt: "Library"}
+
   ];
 
   return (

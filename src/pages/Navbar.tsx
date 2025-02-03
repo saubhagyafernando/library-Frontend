@@ -12,10 +12,7 @@ const Navbar: React.FC = () => {
         <Link to="/contact">Contact Us</Link>
         <Link to="/user-login-signup">User Signup/Login</Link>
         <Link to="/admin-login-signup">Admin Signup/Login</Link>
-        <Link to="/add-book">Add Book</Link>
-        <Link to="/update-book">Update Book</Link>
         <Link to="/add-member">Add Member</Link>
-
       </div>
     </div>
   );
