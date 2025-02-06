@@ -4,8 +4,11 @@ import AboutUs from './pages/AboutUs';
 import ContactUs from './pages/Contactus'; 
 import SearchBook from './Components/SearchBook';
 import AddMember from './Components/AddMember';
+import AddAdmin from './Components/AddAdmin';
 import AddBook from './pages/AddBook';
 import UpdateList from './Components/UpdateList';
+import AdminList from './Components/AdminList';
+import MemberList from './Components/MemberList';
 import { AuthProvider } from './Utils/AuthContext';
 import Navbar from './pages/Navbar';
 import Footer from './pages/Footer';
@@ -31,9 +34,12 @@ const App = () => {
               <Route path="/admin-login-signup" element={<AdminLoginSignUp />} />
               <Route path="/user-login-signup" element={<UserLoginSignUp />} />
               <Route path="/add-member" element={<AddMember />} />
+              <Route path="/add-admin" element={<AddAdmin />} />
               <Route path="/add-book" element={<AddBook />} />
               <Route path="/update-book/:id" element={<AddBook />} />
               <Route path="/update-list" element={<UpdateList />} />
+              <Route path="/admin-list" element={<AdminList />} />
+              <Route path="/member-list" element={<MemberList />} />
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>
           </div>

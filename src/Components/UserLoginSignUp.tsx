@@ -23,9 +23,9 @@ const UserLoginSignUp: React.FC = () => {
     setIsLogin(!isLogin);
   };
 
-  const handleChangeEmail = (event:React.ChangeEvent<HTMLInputElement>) =>{
+  const handleChangeEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
-  }
+  };
 
   const handleChangeFirstName = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFirstName(event.target.value);
@@ -33,24 +33,23 @@ const UserLoginSignUp: React.FC = () => {
 
   const handleChangeLastName = (event: React.ChangeEvent<HTMLInputElement>) => {
     setLastName(event.target.value);
-  }; 
+  };
 
   const handleChangePassWord = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value);
-  }
+  };
 
   const handleChangeDepartment = (event: React.ChangeEvent<HTMLInputElement>) => {
     setDepartment(event.target.value);
-  }
+  };
 
   const handleCHangeCourse = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCourse(event.target.value);
-  }
+  };
 
   const handleChangeYearOfEnrollment = (event: React.ChangeEvent<HTMLInputElement>) => {
     setYearOfEnrollment(event.target.value);
-  }
-  
+  };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -58,23 +57,23 @@ const UserLoginSignUp: React.FC = () => {
       setError('Passwords do not match');
       return;
     }
-    if (!email || !userFirstName || !UserLastName || !course || !department || !YearOfEnrollment || !userPassword){
+    if (!email || !userFirstName || !UserLastName || !course || !department || !YearOfEnrollment || !userPassword) {
       setError('All fields are required!');
       return;
     }
-    try{
-    await addUser({
-      userFirstName,
-      UserLastName,
-      email,
-      course,
-      department,
-      userPassword,
-      YearOfEnrollment: Number(YearOfEnrollment),
-      id: ''
-    })
-    login(false); 
-    navigate('/search-book');// Log in as user
+    try {
+      await addUser({
+        userFirstName,
+        UserLastName,
+        email,
+        course,
+        department,
+        userPassword,
+        YearOfEnrollment: Number(YearOfEnrollment),
+        id: ''
+      });
+      login(false);
+      navigate('/search-book'); // Log in as user
     } catch (error) {
       console.error('Failed to add user:', error);
       setError('An error occurred while saving the user.');
@@ -143,17 +142,6 @@ const UserLoginSignUp: React.FC = () => {
                   required
                 />
               </div>
-              <div className="form-group">
-                <label htmlFor="confirmPassword">Confirm Password</label>
-                <input
-                  type="password"
-                  id="confirmPassword"
-                  className="form-control"
-                  value={confirmPassword}
-                  onChange={handleChangePassWord}
-                  required
-                />
-              </div>
             </>
           )}
           <div className="form-group">
@@ -178,13 +166,26 @@ const UserLoginSignUp: React.FC = () => {
               required
             />
           </div>
+          {!isLogin && (
+            <div className="form-group">
+              <label htmlFor="confirmPassword">Confirm Password</label>
+              <input
+                type="password"
+                id="confirmPassword"
+                className="form-control"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                required
+              />
+            </div>
+          )}
           {error && <p className="error">{error}</p>}
           <button type="submit" className="btn btn-primary">
             {isLogin ? 'Login' : 'Sign Up'}
           </button>
         </form>
         <button onClick={toggleForm} className="btn btn-link">
-          {isLogin ? 'Don\'t have an account? Sign Up' : 'Already have an account? Login'}
+          {isLogin ? "Don't have an account? Sign Up" : 'Already have an account? Login'}
         </button>
       </div>
     </div>
