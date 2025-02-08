@@ -34,7 +34,9 @@ const App = () => {
               <Route path="/admin-login-signup" element={<AdminLoginSignUp />} />
               <Route path="/user-login-signup" element={<UserLoginSignUp />} />
               <Route path="/add-member" element={<AddMember />} />
+              <Route path="/update-member/:id" element={<AddMember />} />
               <Route path="/add-admin" element={<AddAdmin />} />
+              <Route path="/update-admin/:id" element={<AddAdmin />} />
               <Route path="/add-book" element={<AddBook />} />
               <Route path="/update-book/:id" element={<AddBook />} />
               <Route path="/update-list" element={<UpdateList />} />

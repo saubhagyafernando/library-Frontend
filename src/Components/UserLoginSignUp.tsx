@@ -7,16 +7,16 @@ import './LoginSignUp.css';
 const UserLoginSignUp: React.FC = () => {
   const [isLogin, setIsLogin] = useState(true);
   const { login } = useAuth();
-  const [userID, setUserID] = useState('');
   const [email, setEmail] = useState('');
   const [userPassword, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [userFirstName, setFirstName] = useState('');
-  const [UserLastName, setLastName] = useState('');
+  const [userLastName, setLastName] = useState('');
   const [department, setDepartment] = useState('');
   const [course, setCourse] = useState('');
-  const [YearOfEnrollment, setYearOfEnrollment] = useState('');
-  const [error, setError] = useState('');
+  const [yearOfEnrollment, setYearOfEnrollment] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+
   const navigate = useNavigate();
 
   const toggleForm = () => {
@@ -54,37 +54,37 @@ const UserLoginSignUp: React.FC = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!isLogin && userPassword !== confirmPassword) {
-      setError('Passwords do not match');
+      setErrorMessage('Passwords do not match');
       return;
     }
-    if (!email || !userFirstName || !UserLastName || !course || !department || !YearOfEnrollment || !userPassword) {
-      setError('All fields are required!');
+    if (!isLogin && (!email || !userFirstName || !userLastName || !course || !department || !yearOfEnrollment || !userPassword)) {
+      setErrorMessage('All fields are required!');
       return;
     }
     try {
       await addUser({
         userFirstName,
-        UserLastName,
+        userLastName,
         email,
         course,
         department,
         userPassword,
-        YearOfEnrollment: Number(YearOfEnrollment),
-        id: ''
+        yearOfEnrollment: Number(yearOfEnrollment)
       });
       login(false);
       navigate('/search-book'); // Log in as user
     } catch (error) {
       console.error('Failed to add user:', error);
-      setError('An error occurred while saving the user.');
+      setErrorMessage('An error occurred while saving the user.');
     }
   };
 
   return (
-    <div className="container">
+    <div className="container mt-3">
       <div className="form-container">
-        <h2>{isLogin ? 'User Login' : 'User Sign Up'}</h2>
-        <form onSubmit={handleSubmit}>
+        <h2 className="text-primary text-center">{isLogin ? 'User Login' : 'User Sign Up'}</h2>
+        {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
+        <form onSubmit={handleSubmit} className="card p-3 shadow">
           {!isLogin && (
             <>
               <div className="form-group">
@@ -99,12 +99,12 @@ const UserLoginSignUp: React.FC = () => {
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="UserLastName">Last Name</label>
+                <label htmlFor="userLastName">Last Name</label>
                 <input
                   type="text"
-                  id="UserLastName"
+                  id="userLastName"
                   className="form-control"
-                  value={UserLastName}
+                  value={userLastName}
                   onChange={handleChangeLastName}
                   required
                 />
@@ -132,12 +132,12 @@ const UserLoginSignUp: React.FC = () => {
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="YearOfEnrollment">Year of Enrollment</label>
+                <label htmlFor="yearOfEnrollment">Year of Enrollment</label>
                 <input
                   type="number"
-                  id="YearOfEnrollment"
+                  id="yearOfEnrollment"
                   className="form-control"
-                  value={YearOfEnrollment}
+                  value={yearOfEnrollment}
                   onChange={handleChangeYearOfEnrollment}
                   required
                 />
@@ -179,7 +179,7 @@ const UserLoginSignUp: React.FC = () => {
               />
             </div>
           )}
-          {error && <p className="error">{error}</p>}
+          {errorMessage && <p className="error">{errorMessage}</p>}
           <button type="submit" className="btn btn-primary">
             {isLogin ? 'Login' : 'Sign Up'}
           </button>

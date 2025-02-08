@@ -32,12 +32,20 @@ const UpdateList: React.FC = () => {
 
   const handleAddBook = () => {
     navigate('/add-book');
-    };
+  };
+
+  const handleAdminList = () =>{
+    navigate('/admin-list');
+  };
+
+  const handleMemberList = () =>{
+    navigate('/member-list');
+  };
 
   const handleUpdate = (id: string) => {
     console.log(`Updating book with id: ${id}`);
     navigate(`/update-book/${id}`);
-  }
+  };
 
   const handleDelete = async(id:string)=>{
     try{
@@ -54,6 +62,12 @@ const UpdateList: React.FC = () => {
       <h3 className="text-primary">Book List</h3>
       <button className="btn btn-primary mb-3" onClick={handleAddBook}>
         Add Book
+      </button>
+      <button className="btn btn-primary mb-3" onClick={handleAdminList}>
+        Admin List
+      </button>
+      <button className="btn btn-primary mb-3" onClick={handleMemberList}>
+        Member List
       </button>
       <table className="table table-bordered table-striped">
         <thead className="table-dark">

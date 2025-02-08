@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { getUser } from '../service/MemberService';
+import React from 'react';
+import { getUser, deleteUser } from '../service/MemberService';
+import { useNavigate } from 'react-router-dom';
 
 interface User{
     userID: string;
@@ -13,8 +14,8 @@ interface User{
 }
 
 const MemberList: React.FC = () =>{
-    const [user,setUser] = useState<User[]>([]);
-    useEffect(()=>{
+    const [user,setUser] = React.useState<User[]>([]);
+    React.useEffect(()=>{
         const fetchUser = async () =>{
             try{
                 const user = await getUser();
@@ -25,9 +26,32 @@ const MemberList: React.FC = () =>{
         };
         fetchUser();
     },[]);
+
+    const navigate = useNavigate();
+
+    const handleAddMember = () =>{
+        navigate('/add-member');
+    };
+
+    const handleUpdate = (id: string) =>{
+        navigate('/update-member/${id}');
+    }
+
+    const handleDelete = async (id:string) =>{
+        try{
+            await deleteUser(id);
+            setUser((prev) => prev.filter((user) => user.userID !== id));
+        }catch (error){
+            console.error('Failed to delete users:',error);
+        }
+    }
+
     return(
         <div>
             <h3 className="text-primary">Member List</h3>
+            <button className="btn btn-primary mb-3" onClick={handleAddMember}>
+                Add Member
+            </button>
             <table className="table table-bordered table-striped">
                 <thead className="table-dark">
                     <tr>
@@ -38,6 +62,7 @@ const MemberList: React.FC = () =>{
                         <th>Course</th>
                         <th>Year Of Entrollment</th>
                         <th>Password</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -50,6 +75,10 @@ const MemberList: React.FC = () =>{
                             <td>{user.course}</td>
                             <td>{user.yearOfEnrollment}</td>
                             <td>{user.userPassword}</td>
+                            <td>
+                                <button className="btn btn-primary me-2" onClick={() => handleUpdate(user.userID)}>Update</button>
+                                <button className="btn btn-danger" onClick={() => handleDelete(user.userID)}>Delete</button>
+                            </td>
                         </tr>
                     ))}
                 </tbody>
