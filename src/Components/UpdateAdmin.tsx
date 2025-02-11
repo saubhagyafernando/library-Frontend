@@ -4,8 +4,9 @@ import { getAdminById, updateAdmin } from '../service/AdminService'; // Adjust t
 import './LoginSignUp.css';
 
 const AddAdmin: React.FC = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+  const [adminId, setId] = useState('');
+  const [adminName, setName] = useState('');
+  const [adminEmail, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
@@ -16,9 +17,10 @@ const AddAdmin: React.FC = () => {
       const fetchAdmin = async () => {
         try {
           const admin = await getAdminById(id);
-          setName(admin.name);
-          setEmail(admin.email);
-          setPassword(''); // Clear password field for security reasons
+          setId(admin.adminId);
+          setName(admin.adminName);
+          setEmail(admin.adminEmail);
+          setPassword(admin.password); // Clear password field for security reasons
         } catch (error) {
           console.error('Failed to fetch admin:', error);
           setErrorMessage('An error occurred while fetching the admin.');
@@ -27,6 +29,10 @@ const AddAdmin: React.FC = () => {
       fetchAdmin();
     }
   }, [id]);
+
+  const handleChangeAdminId = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setId(event.target.value);
+  };
 
   const handleChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
@@ -42,14 +48,20 @@ const AddAdmin: React.FC = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!name || !email || !password) {
+    if (!adminId || !adminName || !adminEmail || !password) {
       setErrorMessage('All fields are required!');
       return;
     }
 
+    if (!id) {
+      setErrorMessage('Invalid admin ID.');
+      return;
+    }
+
     const admin = {
-      name,
-      email,
+      adminId,
+      adminName,
+      adminEmail,
       password
     };
 
@@ -68,12 +80,22 @@ const AddAdmin: React.FC = () => {
       {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
       <form onSubmit={handleSubmit} className="card p-3 shadow">
         <div className="form-group mb-3">
+          <label htmlFor="adminId">Admin ID:</label>
+          <input
+            type="text"
+            id="adminId"
+            className="form-control"
+            value={adminId}
+            onChange={handleChangeAdminId}
+            required
+          />
+        <div className="form-group mb-3">
           <label htmlFor="name">Name:</label>
           <input
             type="text"
             id="name"
             className="form-control"
-            value={name}
+            value={adminName}
             onChange={handleChangeName}
             required
           />
@@ -84,7 +106,7 @@ const AddAdmin: React.FC = () => {
             type="email"
             id="email"
             className="form-control"
-            value={email}
+            value={adminEmail}
             onChange={handleChangeEmail}
             required
           />
