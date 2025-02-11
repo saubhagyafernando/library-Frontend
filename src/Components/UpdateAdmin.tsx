@@ -89,6 +89,7 @@ const AddAdmin: React.FC = () => {
             onChange={handleChangeAdminId}
             required
           />
+          </div>
         <div className="form-group mb-3">
           <label htmlFor="name">Name:</label>
           <input
