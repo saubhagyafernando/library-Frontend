@@ -1,193 +1,99 @@
+// src/UserLoginSignUp.tsx
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { addUser } from '../service/MemberService';
-import { useAuth } from '../Utils/AuthContext';
-import './LoginSignUp.css';
+import axios from 'axios';
 
-const UserLoginSignUp: React.FC = () => {
-  const [isLogin, setIsLogin] = useState(true);
-  const { login } = useAuth();
+const UserLoginSignUp = () => {
+  const [isLogin, setIsLogin] = useState(true);  // Toggle between Login and Sign-Up
   const [email, setEmail] = useState('');
-  const [userPassword, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [userFirstName, setFirstName] = useState('');
-  const [userLastName, setLastName] = useState('');
-  const [department, setDepartment] = useState('');
-  const [course, setCourse] = useState('');
-  const [yearOfEnrollment, setYearOfEnrollment] = useState('');
+  const [password, setPassword] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-
-  const navigate = useNavigate();
 
   const toggleForm = () => {
     setIsLogin(!isLogin);
   };
 
-  const handleChangeEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(event.target.value);
-  };
+  // Handle the form submission for Login/Sign Up
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (isLogin) {
+      // Login logic
+      try {
+        const response = await axios.get('http://localhost:8081/api/user/login', {
+          params: { email, userPassword: password },
+        });
+        alert('Login successful');
+      } catch (error) {
+        setErrorMessage('Invalid email or password');
+      }
+    } else {
+      // Sign-Up logic
+      if (!email || !firstName || !lastName || !password) {
+        setErrorMessage('Please fill all fields');
+        return;
+      }
 
-  const handleChangeFirstName = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFirstName(event.target.value);
-  };
-
-  const handleChangeLastName = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setLastName(event.target.value);
-  };
-
-  const handleChangePassWord = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(event.target.value);
-  };
-
-  const handleChangeDepartment = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setDepartment(event.target.value);
-  };
-
-  const handleCHangeCourse = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setCourse(event.target.value);
-  };
-
-  const handleChangeYearOfEnrollment = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setYearOfEnrollment(event.target.value);
-  };
-
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    if (!isLogin && userPassword !== confirmPassword) {
-      setErrorMessage('Passwords do not match');
-      return;
-    }
-    if (!isLogin && (!email || !userFirstName || !userLastName || !course || !department || !yearOfEnrollment || !userPassword)) {
-      setErrorMessage('All fields are required!');
-      return;
-    }
-    try {
-      await addUser({
-        userFirstName,
-        userLastName,
-        email,
-        course,
-        department,
-        userPassword,
-        yearOfEnrollment: Number(yearOfEnrollment)
-      });
-      login(false);
-      navigate('/search-book'); // Log in as user
-    } catch (error) {
-      console.error('Failed to add user:', error);
-      setErrorMessage('An error occurred while saving the user.');
+      try {
+        await axios.post('http://localhost:8081/api/user/save', {
+          email,
+          userFirstName: firstName,
+          userLastName: lastName,
+          userPassword: password,
+        });
+        alert('Sign Up successful');
+        setIsLogin(true); // Switch to Login after successful sign-up
+      } catch (error) {
+        setErrorMessage('Error while signing up');
+      }
     }
   };
 
   return (
-    <div className="container mt-3">
-      <div className="form-container">
-        <h2 className="text-primary text-center">{isLogin ? 'User Login' : 'User Sign Up'}</h2>
-        {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
-        <form onSubmit={handleSubmit} className="card p-3 shadow">
-          {!isLogin && (
-            <>
-              <div className="form-group">
-                <label htmlFor="userFirstName">First Name</label>
-                <input
-                  type="text"
-                  id="userFirstName"
-                  className="form-control"
-                  value={userFirstName}
-                  onChange={handleChangeFirstName}
-                  required
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="userLastName">Last Name</label>
-                <input
-                  type="text"
-                  id="userLastName"
-                  className="form-control"
-                  value={userLastName}
-                  onChange={handleChangeLastName}
-                  required
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="department">Department</label>
-                <input
-                  type="text"
-                  id="department"
-                  className="form-control"
-                  value={department}
-                  onChange={handleChangeDepartment}
-                  required
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="course">Course</label>
-                <input
-                  type="text"
-                  id="course"
-                  className="form-control"
-                  value={course}
-                  onChange={handleCHangeCourse}
-                  required
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="yearOfEnrollment">Year of Enrollment</label>
-                <input
-                  type="number"
-                  id="yearOfEnrollment"
-                  className="form-control"
-                  value={yearOfEnrollment}
-                  onChange={handleChangeYearOfEnrollment}
-                  required
-                />
-              </div>
-            </>
-          )}
-          <div className="form-group">
-            <label htmlFor="email">Email</label>
+    <div className="container">
+      <h2>{isLogin ? 'Login' : 'Sign Up'}</h2>
+      {errorMessage && <div className="error-message">{errorMessage}</div>}
+      <form onSubmit={handleSubmit}>
+        {!isLogin && (
+          <>
             <input
-              type="email"
-              id="email"
-              className="form-control"
-              value={email}
-              onChange={handleChangeEmail}
+              type="text"
+              placeholder="First Name"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
               required
             />
-          </div>
-          <div className="form-group">
-            <label htmlFor="userPassword">Password</label>
             <input
-              type="password"
-              id="userPassword"
-              className="form-control"
-              value={userPassword}
-              onChange={handleChangePassWord}
+              type="text"
+              placeholder="Last Name"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
               required
             />
-          </div>
-          {!isLogin && (
-            <div className="form-group">
-              <label htmlFor="confirmPassword">Confirm Password</label>
-              <input
-                type="password"
-                id="confirmPassword"
-                className="form-control"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                required
-              />
-            </div>
-          )}
-          {errorMessage && <p className="error">{errorMessage}</p>}
-          <button type="submit" className="btn btn-primary">
-            {isLogin ? 'Login' : 'Sign Up'}
-          </button>
-        </form>
-        <button onClick={toggleForm} className="btn btn-link">
-          {isLogin ? "Don't have an account? Sign Up" : 'Already have an account? Login'}
-        </button>
-      </div>
+          </>
+        )}
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+  
+        
+        <button type="submit">{isLogin ? 'Login' : 'Sign Up'}</button>
+      </form>
+      <button onClick={toggleForm}>
+        {isLogin ? "Don't have an account? Sign Up" : 'Already have an account? Login'}
+      </button>
     </div>
   );
 };
