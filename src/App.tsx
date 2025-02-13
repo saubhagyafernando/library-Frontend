@@ -35,12 +35,12 @@ const App = () => {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/" element={<Home />} />
-  <Route path="/contact" element={<ContactUs />} />
-  <Route path="/about-us" element={<AboutUs />} />
-  <Route path="/library-notice" element={<LibraryNotice />} />
-  <Route path="/vision-and-mission" element={<VisionAndMission />} />
-  <Route path="/library-hours" element={<LibraryHours />} />
-  <Route path="/library-staff" element={<LibraryStaff />} />
+              <Route path="/contact" element={<ContactUs />} />
+              <Route path="/about-us" element={<AboutUs />} />
+              <Route path="/library-notice" element={<LibraryNotice />} />
+              <Route path="/vision-and-mission" element={<VisionAndMission />} />
+              <Route path="/library-hours" element={<LibraryHours />} />
+              <Route path="/library-staff" element={<LibraryStaff />} />
               <Route path="/contact" element={<ContactUs />} /> {/* Updated to use the ContactUs component */}
               <Route path="/search-book" element={<SearchBook />} />
               <Route path="/admin-login-signup" element={<AdminLoginSignUp />} />
