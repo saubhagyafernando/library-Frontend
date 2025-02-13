@@ -1,6 +1,10 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Home from './pages/Home';
 import AboutUs from './pages/AboutUs';
+import LibraryNotice from './pages/LibraryNotice';
+import VisionAndMission from './pages/VisionAndMission';
+import LibraryHours from './pages/LibraryHours';
+import LibraryStaff from './pages/LibraryStaff';
 import ContactUs from './pages/Contactus'; 
 import SearchBook from './Components/SearchBook';
 import AddMember from './Components/AddMember';
@@ -18,6 +22,8 @@ import './assets/Library1.jpg';
 import './assets/Library2.jpg';
 import './assets/Library3.jpg';
 import './assets/library.jpg';
+import '@fortawesome/fontawesome-free/css/all.min.css';
+
 
 const App = () => {
   return (
@@ -28,7 +34,13 @@ const App = () => {
           <div className="flex-grow-1 main-content">
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/about" element={<AboutUs />} />
+              <Route path="/" element={<Home />} />
+  <Route path="/contact" element={<ContactUs />} />
+  <Route path="/about-us" element={<AboutUs />} />
+  <Route path="/library-notice" element={<LibraryNotice />} />
+  <Route path="/vision-and-mission" element={<VisionAndMission />} />
+  <Route path="/library-hours" element={<LibraryHours />} />
+  <Route path="/library-staff" element={<LibraryStaff />} />
               <Route path="/contact" element={<ContactUs />} /> {/* Updated to use the ContactUs component */}
               <Route path="/search-book" element={<SearchBook />} />
               <Route path="/admin-login-signup" element={<AdminLoginSignUp />} />

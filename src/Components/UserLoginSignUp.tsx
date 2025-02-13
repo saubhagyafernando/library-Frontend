@@ -88,7 +88,7 @@ const UserLoginSignUp = () => {
           required
         />
   
-
+        
         <button type="submit">{isLogin ? 'Login' : 'Sign Up'}</button>
       </form>
       <button onClick={toggleForm}>
