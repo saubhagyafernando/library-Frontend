@@ -1,8 +1,19 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { addUser } from '../service/MemberService';
+import { addUser, getUserByEmail } from '../service/MemberService';
 import { useAuth } from '../Utils/AuthContext';
 import './LoginSignUp.css';
+
+interface User {
+  userID: string;
+  userFirstName: string;
+  userLastName: string;
+  email: string;
+  department: string;
+  course: string;
+  yearOfEnrollment: number;
+  userPassword: string;
+}
 
 const UserLoginSignUp: React.FC = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -43,7 +54,7 @@ const UserLoginSignUp: React.FC = () => {
     setDepartment(event.target.value);
   };
 
-  const handleCHangeCourse = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeCourse = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCourse(event.target.value);
   };
 
@@ -53,29 +64,48 @@ const UserLoginSignUp: React.FC = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!isLogin && userPassword !== confirmPassword) {
-      setErrorMessage('Passwords do not match');
-      return;
-    }
-    if (!isLogin && (!email || !userFirstName || !userLastName || !course || !department || !yearOfEnrollment || !userPassword)) {
-      setErrorMessage('All fields are required!');
-      return;
-    }
-    try {
-      await addUser({
-        userFirstName,
-        userLastName,
-        email,
-        course,
-        department,
-        userPassword,
-        yearOfEnrollment: Number(yearOfEnrollment)
-      });
-      login(false);
-      navigate('/search-book'); // Log in as user
-    } catch (error) {
-      console.error('Failed to add user:', error);
-      setErrorMessage('An error occurred while saving the user.');
+    setErrorMessage('');
+
+    if (isLogin) {
+      // Login logic
+      try {
+        const user = await getUserByEmail(email);
+        if (user && user.userPassword === userPassword) {
+          login(false); // Log in as user
+          navigate('/search-book');
+        } else {
+          setErrorMessage('Invalid email or password');
+        }
+      } catch (error) {
+        console.error('Failed to login:', error);
+        setErrorMessage('An error occurred while logging in.');
+      }
+    } else {
+      // Sign up logic
+      if (userPassword !== confirmPassword) {
+        setErrorMessage('Passwords do not match');
+        return;
+      }
+      if (!email || !userFirstName || !userLastName || !course || !department || !yearOfEnrollment || !userPassword) {
+        setErrorMessage('All fields are required!');
+        return;
+      }
+      try {
+        await addUser({
+          userFirstName,
+          userLastName,
+          email,
+          course,
+          department,
+          userPassword,
+          yearOfEnrollment: Number(yearOfEnrollment)
+        });
+        login(false);
+        navigate('/search-book'); // Log in as user
+      } catch (error) {
+        console.error('Failed to add user:', error);
+        setErrorMessage('An error occurred while saving the user.');
+      }
     }
   };
 
@@ -127,7 +157,7 @@ const UserLoginSignUp: React.FC = () => {
                   id="course"
                   className="form-control"
                   value={course}
-                  onChange={handleCHangeCourse}
+                  onChange={handleChangeCourse}
                   required
                 />
               </div>

@@ -22,7 +22,6 @@ const AddMember: React.FC = () => {
       const fetchUser = async () => {
         try {
           const user = await getUserById(id);
-          setUserID(user.userID);
           setFirstName(user.userFirstName);
           setLastName(user.userLastName);
           setEmail(user.email);

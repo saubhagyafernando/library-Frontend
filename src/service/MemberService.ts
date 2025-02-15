@@ -25,3 +25,8 @@ export const deleteUser = async (id: string) => {
     const response = await axios.delete(`${API_URL}/${id}`);
     return response.data;
 };
+
+export const getUserByEmail = async (email: string) => {
+    const response = await axios.get(`${API_URL}/email/${email}`);
+    return response.data;
+};

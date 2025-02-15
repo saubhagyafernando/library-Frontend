@@ -6,7 +6,7 @@ export const getAdmin = async () => {
     return response.data;
 };
 
-export const addAdmin = async (admin: {adminId:string; adminName: string; adminEmail: string;password: string}) => {
+export const addAdmin = async (admin: { adminName: string; adminEmail: string;password: string}) => {
     const response = await axios.post(API_URL, admin);
     return response.data;
 };
@@ -23,5 +23,10 @@ export const updateAdmin = async (id: string, admin: {adminId:string; adminName:
 
 export const deleteAdmin = async (id: string) => {
     const response = await axios.delete(`${API_URL}/${id}`);
+    return response.data;
+};
+
+export const getAdminByAdminEmail = async (adminEmail: string) => {
+    const response = await axios.get(`${API_URL}/email/${adminEmail}`);
     return response.data;
 };
