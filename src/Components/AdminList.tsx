@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState }  from 'react';
 import { getAdmin,deleteAdmin } from '../service/AdminService';
 import { useNavigate } from 'react-router-dom';
 
@@ -11,7 +11,7 @@ interface Admin {
 
 const AdminList: React.FC =() =>{
     const[admin,setAdmin] = React.useState<Admin[]>([]);
-    React.useEffect(() =>{
+    useEffect(() =>{
         const fetchAdmin = async () =>{
             try{
                 const admin = await getAdmin();

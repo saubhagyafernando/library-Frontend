@@ -9,6 +9,7 @@ import ContactUs from './pages/Contactus';
 import SearchBook from './Components/SearchBook';
 import AddMember from './Components/AddMember';
 import AddAdmin from './Components/AddAdmin';
+import UpdateAdmin from './Components/UpdateAdmin';
 import AddBook from './pages/AddBook';
 import UpdateList from './Components/UpdateList';
 import AdminList from './Components/AdminList';
@@ -23,7 +24,6 @@ import './assets/Library2.jpg';
 import './assets/Library3.jpg';
 import './assets/library.jpg';
 import '@fortawesome/fontawesome-free/css/all.min.css';
-
 
 const App = () => {
   return (
@@ -48,7 +48,7 @@ const App = () => {
               <Route path="/add-member" element={<AddMember />} />
               <Route path="/update-member/:id" element={<AddMember />} />
               <Route path="/add-admin" element={<AddAdmin />} />
-              <Route path="/update-admin/:id" element={<AddAdmin />} />
+              <Route path="/update-admin/:id" element={<UpdateAdmin />} />
               <Route path="/add-book" element={<AddBook />} />
               <Route path="/update-book/:id" element={<AddBook />} />
               <Route path="/update-list" element={<UpdateList />} />

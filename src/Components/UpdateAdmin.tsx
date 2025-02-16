@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getAdminById, updateAdmin } from '../service/AdminService'; // Adjust the import based on your project structure
-import './LoginSignUp.css';
 
-const AddAdmin: React.FC = () => {
-  const [adminId, setId] = useState('');
-  const [adminName, setName] = useState('');
-  const [adminEmail, setEmail] = useState('');
+const UpdateAdmin: React.FC = () => {
+  const [adminId, setAdminId] = useState('');
+  const [adminName, setAdminName] = useState('');
+  const [adminEmail, setAdminEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
@@ -17,9 +16,9 @@ const AddAdmin: React.FC = () => {
       const fetchAdmin = async () => {
         try {
           const admin = await getAdminById(id);
-          setId(admin.adminId);
-          setName(admin.adminName);
-          setEmail(admin.adminEmail);
+          setAdminId(admin.adminId);
+          setAdminName(admin.adminName);
+          setAdminEmail(admin.adminEmail);
           setPassword(admin.password); // Clear password field for security reasons
         } catch (error) {
           console.error('Failed to fetch admin:', error);
@@ -31,15 +30,15 @@ const AddAdmin: React.FC = () => {
   }, [id]);
 
   const handleChangeAdminId = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setId(event.target.value);
+    setAdminId(event.target.value);
   };
 
   const handleChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setName(event.target.value);
+    setAdminName(event.target.value);
   };
 
   const handleChangeEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(event.target.value);
+    setAdminEmail(event.target.value);
   };
 
   const handleChangePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -65,9 +64,11 @@ const AddAdmin: React.FC = () => {
       password
     };
 
+    console.log('Updating admin:', admin);
+
     try {
       await updateAdmin(id, admin);
-      navigate('/admin-dashboard'); // Redirect to admin dashboard
+      navigate('/admin-list'); // Redirect to admin dashboard
     } catch (error) {
       console.error('Failed to update admin:', error);
       setErrorMessage('An error occurred while updating the admin.');
@@ -76,7 +77,7 @@ const AddAdmin: React.FC = () => {
 
   return (
     <div className="container mt-3">
-      <h2 className="text-primary text-center">Update Admin</h2>
+      <h3 className="text-primary text-center">Update Admin</h3>
       {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
       <form onSubmit={handleSubmit} className="card p-3 shadow">
         <div className="form-group mb-3">
@@ -89,12 +90,12 @@ const AddAdmin: React.FC = () => {
             onChange={handleChangeAdminId}
             required
           />
-          </div>
+        </div>
         <div className="form-group mb-3">
-          <label htmlFor="name">Name:</label>
+          <label htmlFor="adminName">Name:</label>
           <input
             type="text"
-            id="name"
+            id="adminName"
             className="form-control"
             value={adminName}
             onChange={handleChangeName}
@@ -102,10 +103,10 @@ const AddAdmin: React.FC = () => {
           />
         </div>
         <div className="form-group mb-3">
-          <label htmlFor="email">Email:</label>
+          <label htmlFor="adminEmail">Email:</label>
           <input
             type="email"
-            id="email"
+            id="adminEmail"
             className="form-control"
             value={adminEmail}
             onChange={handleChangeEmail}
@@ -129,4 +130,4 @@ const AddAdmin: React.FC = () => {
   );
 };
 
-export default AddAdmin;
+export default UpdateAdmin;

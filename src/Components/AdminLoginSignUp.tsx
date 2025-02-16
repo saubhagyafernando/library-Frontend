@@ -4,12 +4,6 @@ import { getAdminByAdminEmail } from '../service/AdminService';
 import { useAuth } from '../Utils/AuthContext';
 import './LoginSignUp.css';
 
-interface Admin {
-  adminId: string;
-  adminName: string;
-  adminEmail: string;
-  password: string;
-}
 
 const AdminLoginSignUp: React.FC = () => {
   const { login } = useAuth();
