@@ -8,6 +8,7 @@ import LibraryStaff from './pages/LibraryStaff';
 import ContactUs from './pages/Contactus'; 
 import SearchBook from './Components/SearchBook';
 import AddMember from './Components/AddMember';
+import UpdateMember from './Components/UpdateMember';
 import AddAdmin from './Components/AddAdmin';
 import UpdateAdmin from './Components/UpdateAdmin';
 import AddBook from './pages/AddBook';
@@ -46,9 +47,9 @@ const App = () => {
               <Route path="/admin-login-signup" element={<AdminLoginSignUp />} />
               <Route path="/user-login-signup" element={<UserLoginSignUp />} />
               <Route path="/add-member" element={<AddMember />} />
-              <Route path="/update-member/:id" element={<AddMember />} />
+              <Route path="/update-member/:userID" element={<UpdateMember />} />
               <Route path="/add-admin" element={<AddAdmin />} />
-              <Route path="/update-admin/:id" element={<UpdateAdmin />} />
+              <Route path="/update-admin/:adminId" element={<UpdateAdmin />} />
               <Route path="/add-book" element={<AddBook />} />
               <Route path="/update-book/:id" element={<AddBook />} />
               <Route path="/update-list" element={<UpdateList />} />

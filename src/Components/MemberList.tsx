@@ -33,8 +33,8 @@ const MemberList: React.FC = () =>{
         navigate('/add-member');
     };
 
-    const handleUpdate = (id: string) =>{
-        navigate('/update-member/${id}');
+    const handleUpdate = (userID: string) =>{
+        navigate('/update-member/${userID}');
     }
 
     const handleDelete = async (id:string) =>{

@@ -110,7 +110,7 @@ const AddBook: React.FC = () => {
           className="form-control"
           value={bookID}
           onChange={handleChangeBookId}
-          required
+          disabled={id ? true : false}
           />
       </div>
         <div className="form-group mb-3">

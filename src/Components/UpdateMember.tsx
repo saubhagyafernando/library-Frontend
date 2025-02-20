@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { addUser } from '../service/MemberService'; // Adjust the import based on your project structure
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { getUserById, updateUser } from '../service/MemberService'; // Adjust the import based on your project structure
 
-const AddMember: React.FC = () => {
+const UpdateMember: React.FC = () => {
+  const [userID, setUserID] = useState('');
   const [userFirstName, setFirstName] = useState('');
   const [userLastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -10,9 +11,35 @@ const AddMember: React.FC = () => {
   const [course, setCourse] = useState('');
   const [yearOfEnrollment, setYearOfEnrollment] = useState('');
   const [userPassword, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
+  const { userID: userId } = useParams<{ userID: string }>();
+
+  useEffect(() => {
+    if (userId) {
+      const fetchUser = async () => {
+        try {
+          const user = await getUserById(userId);
+          setUserID(user.userID);
+          setFirstName(user.userFirstName);
+          setLastName(user.userLastName);
+          setEmail(user.email);
+          setDepartment(user.department);
+          setCourse(user.course);
+          setYearOfEnrollment(user.yearOfEnrollment.toString());
+          setPassword(''); // Clear password field for security reasons
+        } catch (error) {
+          console.error('Failed to fetch user:', error);
+          setErrorMessage('An error occurred while fetching the user.');
+        }
+      };
+      fetchUser();
+    }
+  }, [userId]);
+
+  const handleChangeUserID = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setUserID(event.target.value);
+  };
 
   const handleChangeFirstName = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFirstName(event.target.value);
@@ -42,17 +69,9 @@ const AddMember: React.FC = () => {
     setPassword(event.target.value);
   };
 
-  const handleChangeConfirmPassword = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setConfirmPassword(event.target.value);
-  };
-
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (userPassword !== confirmPassword) {
-      setErrorMessage('Passwords do not match');
-      return;
-    }
-    if (!userFirstName || !userLastName || !email || !department || !course || !yearOfEnrollment || !userPassword) {
+    if (!userID || !userFirstName || !userLastName || !email || !department || !course || !yearOfEnrollment || !userPassword) {
       setErrorMessage('All fields are required!');
       return;
     }
@@ -62,6 +81,7 @@ const AddMember: React.FC = () => {
     }
 
     const user = {
+      userID,
       userFirstName,
       userLastName,
       email,
@@ -72,7 +92,7 @@ const AddMember: React.FC = () => {
     };
 
     try {
-      await addUser(user);
+      await updateUser(userID, user);
       navigate('/member-list'); // Redirect to user dashboard
     } catch (error) {
       console.error('Failed to save user:', error);
@@ -82,9 +102,20 @@ const AddMember: React.FC = () => {
 
   return (
     <div className="container mt-3">
-      <h2 className="text-primary text-center">User Sign Up</h2>
+      <h2 className="text-primary text-center">Update User</h2>
       {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
       <form onSubmit={handleSubmit} className="card p-3 shadow">
+        <div className="form-group mb-3">
+          <label htmlFor="userID">ID</label>
+          <input
+            type="text"
+            id="userID"
+            className="form-control"
+            value={userID}
+            onChange={handleChangeUserID}
+            disabled
+          />
+        </div>
         <div className="form-group mb-3">
           <label htmlFor="userFirstName">First Name:</label>
           <input
@@ -162,21 +193,10 @@ const AddMember: React.FC = () => {
             required
           />
         </div>
-        <div className="form-group mb-3">
-          <label htmlFor="confirmPassword">Confirm Password:</label>
-          <input
-            type="password"
-            id="confirmPassword"
-            className="form-control"
-            value={confirmPassword}
-            onChange={handleChangeConfirmPassword}
-            required
-          />
-        </div>
-        <button type="submit" className="btn btn-primary">Sign Up</button>
+        <button type="submit" className="btn btn-primary">Update User</button>
       </form>
     </div>
   );
 };
 
-export default AddMember;
+export default UpdateMember;

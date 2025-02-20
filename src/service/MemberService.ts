@@ -11,18 +11,18 @@ export const addUser = async (user: { userFirstName: string; userLastName: strin
     return response.data;
 };
 
-export const getUserById = async (id: string) => {
-    const response = await axios.get(`${API_URL}/${id}`);
+export const getUserById = async (userID: string) => {
+    const response = await axios.get(`${API_URL}/${userID}`);
     return response.data;
 };
 
-export const updateUser = async (id: string, user: {userID: string; userFirstName: string; userLastName: string;email: string;department: string;course:string;yearOfEnrollment: number;userPassword:string}) => {
-        const response = await axios.put(`${API_URL}/${id}`, user);
+export const updateUser = async (userID: string, user: {userID: string; userFirstName: string; userLastName: string;email: string;department: string;course:string;yearOfEnrollment: number;userPassword:string}) => {
+        const response = await axios.put(`${API_URL}/${userID}`, user);
         return response.data;
 };
 
-export const deleteUser = async (id: string) => {
-    const response = await axios.delete(`${API_URL}/${id}`);
+export const deleteUser = async (userID: string) => {
+    const response = await axios.delete(`${API_URL}/${userID}`);
     return response.data;
 };
 
