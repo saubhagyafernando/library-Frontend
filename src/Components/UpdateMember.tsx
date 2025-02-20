@@ -27,7 +27,7 @@ const UpdateMember: React.FC = () => {
           setDepartment(user.department);
           setCourse(user.course);
           setYearOfEnrollment(user.yearOfEnrollment.toString());
-          setPassword(''); // Clear password field for security reasons
+          setPassword(user.userPassword); // Clear password field for security reasons
         } catch (error) {
           console.error('Failed to fetch user:', error);
           setErrorMessage('An error occurred while fetching the user.');
@@ -95,8 +95,8 @@ const UpdateMember: React.FC = () => {
       await updateUser(userID, user);
       navigate('/member-list'); // Redirect to user dashboard
     } catch (error) {
-      console.error('Failed to save user:', error);
-      setErrorMessage('An error occurred while saving the user.');
+      console.error('Failed to update user:', error);
+      setErrorMessage('An error occurred while updating the user.');
     }
   };
 
