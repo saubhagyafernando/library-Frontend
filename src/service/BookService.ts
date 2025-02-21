@@ -6,7 +6,7 @@ export const getBook = async () => {
     return response.data;
 };
 
-export const addBook = async (book: {bookID:string; bookTittle: string; isbn: number;publicationDate: Date;subject: string;status:number}) => {
+export const addBook = async (book: {bookTittle: string; isbn: number;publicationDate: Date;subject: string;status:number}) => {
     const response = await axios.post(API_URL, book);
     return response.data;
 };
