@@ -33,14 +33,14 @@ const MemberList: React.FC = () =>{
         navigate('/add-member');
     };
 
-    const handleUpdate = (id: string) =>{
-        navigate('/update-member/${id}');
+    const handleUpdate = (userID: string) =>{
+        navigate(`/update-member/${userID}`);
     }
 
-    const handleDelete = async (id:string) =>{
+    const handleDelete = async (userID:string) =>{
         try{
-            await deleteUser(id);
-            setUser((prev) => prev.filter((user) => user.userID !== id));
+            await deleteUser(userID);
+            setUser((prev) => prev.filter((user) => user.userID !== userID));
         }catch (error){
             console.error('Failed to delete users:',error);
         }

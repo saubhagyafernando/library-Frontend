@@ -42,16 +42,16 @@ const UpdateList: React.FC = () => {
     navigate('/member-list');
   };
 
-  const handleUpdate = (id: string) => {
-    console.log(`Updating book with id: ${id}`);
-    navigate(`/update-book/${id}`);
+  const handleUpdate = (bookID: string) => {
+    console.log(`Updating book with id: ${bookID}`);
+    navigate(`/update-book/${bookID}`);
   };
 
-  const handleDelete = async(id:string)=>{
+  const handleDelete = async(bookID:string)=>{
     try{
-      console.log(`Deleting book with id: ${id}`);
-      await deleteBook(id);
-      setBooks((prev) => prev.filter((book) => book.bookID !== id));
+      console.log(`Deleting book with id: ${bookID}`);
+      await deleteBook(bookID);
+      setBooks((prev) => prev.filter((book) => book.bookID !== bookID));
     }catch (error){
       console.error('Failed to delete book:',error);
     }
@@ -87,7 +87,7 @@ const UpdateList: React.FC = () => {
                 <td>{book.isbn}</td>
                 <td>{new Date(book.publicationDate).toLocaleDateString()}</td>
                 <td>{book.subject}</td>
-                <td>{book.status>0 ? 'Available' : 'Unavailable'}</td>
+                <td>{book.status > 0 ? 'Available' : 'Unavailable'}</td>
                 <td>
                 <button className="btn btn-primary me-2" onClick={() => handleUpdate(book.bookID)}>
                 Update

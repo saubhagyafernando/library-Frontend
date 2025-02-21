@@ -9,13 +9,13 @@ const UpdateAdmin: React.FC = () => {
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
-  const { id } = useParams<{ id: string }>();
+  const { adminId: paramAdminId } = useParams<{ adminId: string }>();
 
   useEffect(() => {
-    if (id) {
+    if (paramAdminId) {
       const fetchAdmin = async () => {
         try {
-          const admin = await getAdminById(id);
+          const admin = await getAdminById(paramAdminId);
           setAdminId(admin.adminId);
           setAdminName(admin.adminName);
           setAdminEmail(admin.adminEmail);
@@ -27,7 +27,7 @@ const UpdateAdmin: React.FC = () => {
       };
       fetchAdmin();
     }
-  }, [id]);
+  }, [paramAdminId]);
 
   const handleChangeAdminId = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAdminId(event.target.value);
@@ -52,11 +52,6 @@ const UpdateAdmin: React.FC = () => {
       return;
     }
 
-    if (!id) {
-      setErrorMessage('Invalid admin ID.');
-      return;
-    }
-
     const admin = {
       adminId,
       adminName,
@@ -64,10 +59,8 @@ const UpdateAdmin: React.FC = () => {
       password
     };
 
-    console.log('Updating admin:', admin);
-
     try {
-      await updateAdmin(id, admin);
+      await updateAdmin(adminId, admin);
       navigate('/admin-list'); // Redirect to admin dashboard
     } catch (error) {
       console.error('Failed to update admin:', error);
@@ -88,7 +81,7 @@ const UpdateAdmin: React.FC = () => {
             className="form-control"
             value={adminId}
             onChange={handleChangeAdminId}
-            required
+            disabled
           />
         </div>
         <div className="form-group mb-3">
