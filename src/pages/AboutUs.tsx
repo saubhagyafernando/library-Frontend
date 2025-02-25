@@ -1,7 +1,6 @@
-// src/pages/AboutUs.tsx
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './AboutUs.css'; // optional for styles
+import './AboutUs.css'; // Import the CSS file
 
 const AboutUs = () => {
   return (
@@ -37,6 +36,26 @@ const AboutUs = () => {
             <p>Library Staff</p>
           </Link>
         </div>
+      </div>
+
+      <div className="additional-info">
+        <h2>History of Our Library</h2>
+        <p>Our library was established in 1920 with the mission to provide access to knowledge and resources to the community. Over the years, we have grown to become a central hub for learning and cultural activities.</p>
+
+        <h2>Services Offered</h2>
+        <ul>
+          <li>Book lending and returns</li>
+          <li>Free Wi-Fi access</li>
+          <li>Study rooms and meeting spaces</li>
+          <li>Workshops and events</li>
+          <li>Online resources and databases</li>
+        </ul>
+
+        <h2>Contact Information</h2>
+        <p>If you have any questions or need assistance, please feel free to contact us:</p>
+        <p><i className="fas fa-phone-alt"></i>+94 114561231</p>
+        <p><i className="fas fa-envelope"></i> onlinelibrary@library.com</p>
+        <p><i className="fas fa-map-marker-alt"></i> 123 Library St., Colombo, Sri Lanka</p>
       </div>
     </div>
   );

@@ -14,3 +14,25 @@
   color: #0b1b74;
   margin-top: 20px;
 }
+
+.video-container {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.video-container iframe {
+  width: 100%;
+  height: 100%;
+  max-width: 1000px; /* Optional: Set a max-width for the video */
+  aspect-ratio: 16/9; /* Maintain the aspect ratio */
+}
+
+.contact-details {
+  margin-top: 20px;
+}
+
+.contact-details div {
+  margin: 5px 0;
+}
