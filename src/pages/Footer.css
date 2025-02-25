@@ -1,0 +1,13 @@
+.contact-details {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px; /* Adjust the gap between items as needed */
+  }
+  
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 5px; /* Adjust the gap between icon and text as needed */
+  }

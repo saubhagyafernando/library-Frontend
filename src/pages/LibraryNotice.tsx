@@ -1,5 +1,5 @@
-// src/LibraryNotices.tsx
 import React from 'react';
+import './LibraryNotice.css'; // Import the CSS file
 
 // Example notices hardcoded directly in the component
 const libraryNotices = [
@@ -38,8 +38,8 @@ const libraryNotices = [
 const LibraryNotices: React.FC = () => {
   return (
     <div className="library-notices-container">
-      <h1>Library Notices</h1>
-      <table>
+      <h1 className="library-notices-heading">Library Notices</h1>
+      <table className="library-notices-table">
         <thead>
           <tr>
             <th>Title</th>
@@ -62,4 +62,3 @@ const LibraryNotices: React.FC = () => {
 };
 
 export default LibraryNotices;
-

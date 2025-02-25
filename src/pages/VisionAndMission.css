@@ -1,0 +1,24 @@
+.vision-mission-container {
+    padding: 20px;
+    background-color: #f9f9f9;
+    text-align: center;
+  }
+  
+  .vision-mission-heading {
+    font-size: 3rem;
+    color: #5f1515;
+    margin-bottom: 20px;
+  }
+  
+  .vision-heading, .mission-heading {
+    font-size: 2rem;
+    color: #0b1b74;
+    margin-top: 20px;
+  }
+  
+  .vision-text, .mission-text {
+    font-size: 1.2rem;
+    color: #333;
+    margin-top: 10px;
+    line-height: 1.6;
+  }

@@ -1,6 +1,5 @@
-// src/LibraryHours.tsx
 import React from 'react';
-import './LibraryHours.css'; // optional for styles
+import './LibraryHours.css'; // Import the CSS file
 
 // Define the type for the library hours data
 interface LibraryHour {
@@ -24,8 +23,8 @@ const libraryHours: LibraryHour[] = [
 const LibraryHours: React.FC = () => {
   return (
     <div className="table-container">
-      <h1>Library Hours</h1>
-      <table>
+      <h1 className="library-hours-heading">Library Hours</h1>
+      <table className="library-hours-table">
         <thead>
           <tr>
             <th>Day</th>

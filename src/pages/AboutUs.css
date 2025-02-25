@@ -1,49 +1,82 @@
 .about-us-container {
-  text-align: center;
   padding: 20px;
+  background-color: #f9f9f9;
+  text-align: center;
 }
-.about-us-container h1 {
-  font-size: 3.5rem;
-  color: #5f1515;
 
+.about-us-container h1 {
+  font-size: 3rem;
+  color: #5f1515;
+  margin-bottom: 20px;
 }
+
 .about-us-container h2 {
   font-size: 1.5rem;
-  color: #110000;
-}
-.about-us-container p {
-  font-size: 1.0rem;
-  color: #9518a5;
-
+  color: #0b1b74;
+  margin-bottom: 40px;
 }
 
 .sections {
   display: flex;
-  justify-content: space-around;
-  margin-top: 20px;
   flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
 }
 
 .section-item {
-  text-align: center;
-  margin: 20px;
-  padding: 10px;
-  border: 3px solid #df1616;
+  background-color: #fff;
+  border: 1px solid #ddd;
   border-radius: 8px;
-  width: 150px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+  padding: 20px;
+  width: 200px;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .section-item:hover {
-  background-color: #f0f0f0;
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .section-item i {
   font-size: 2rem;
-  color: #4CAF50;
+  color: #0b1b74;
+  margin-bottom: 10px;
 }
 
 .section-item p {
-  margin-top: 10px;
+  font-size: 1.2rem;
+  color: #333;
+  margin: 0;
+}
+
+.section-item a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.additional-info {
+  margin-top: 40px;
+  text-align: left;
+}
+
+.additional-info h2 {
+  font-size: 1.8rem;
+  color: #5f1515;
+  margin-bottom: 20px;
+}
+
+.additional-info p, .additional-info ul {
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.additional-info ul {
+  list-style-type: disc;
+  padding-left: 20px;
+}
+
+.additional-info i {
+  margin-right: 10px;
 }

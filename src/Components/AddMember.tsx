@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { addUser } from '../service/MemberService'; // Adjust the import based on your project structure
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { addUser, getUserById, updateUser } from '../service/MemberService'; // Adjust the import based on your project structure
+import './LoginSignUp.css';
 
 const AddMember: React.FC = () => {
+  const [userID, setUserID] = useState('');
   const [userFirstName, setFirstName] = useState('');
   const [userLastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -13,6 +15,33 @@ const AddMember: React.FC = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
+  const { id } = useParams<{ id: string }>();
+
+  useEffect(() => {
+    if (id) {
+      const fetchUser = async () => {
+        try {
+          const user = await getUserById(id);
+          setUserID(user.userID);
+          setFirstName(user.userFirstName);
+          setLastName(user.userLastName);
+          setEmail(user.email);
+          setDepartment(user.department);
+          setCourse(user.course);
+          setYearOfEnrollment(user.yearOfEnrollment.toString());
+          setPassword(user.userPassword); // Clear password field for security reasons
+        } catch (error) {
+          console.error('Failed to fetch user:', error);
+          setErrorMessage('An error occurred while fetching the user.');
+        }
+      };
+      fetchUser();
+    }
+  }, [id]);
+
+  const handleChangeUserId = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setUserID(event.target.value);
+  }
 
   const handleChangeFirstName = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFirstName(event.target.value);
@@ -48,7 +77,7 @@ const AddMember: React.FC = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (userPassword !== confirmPassword) {
+    if (!id && userPassword !== confirmPassword) {
       setErrorMessage('Passwords do not match');
       return;
     }
@@ -72,7 +101,11 @@ const AddMember: React.FC = () => {
     };
 
     try {
-      await addUser(user);
+      if (id) {
+        await updateUser(id, {userID, userFirstName, userLastName, email, department, course, yearOfEnrollment: Number(yearOfEnrollment), userPassword});
+      } else {
+        await addUser(user);
+      }
       navigate('/member-list'); // Redirect to user dashboard
     } catch (error) {
       console.error('Failed to save user:', error);
@@ -82,9 +115,20 @@ const AddMember: React.FC = () => {
 
   return (
     <div className="container mt-3">
-      <h2 className="text-primary text-center">User Sign Up</h2>
+      <h2 className="text-primary text-center">{id ? 'Update User' : 'User Sign Up'}</h2>
       {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
       <form onSubmit={handleSubmit} className="card p-3 shadow">
+      {id &&(<div className="form-group mb-3">
+        <label htmlFor="userID">ID</label>
+        <input
+          type="text"
+          id="userID"
+          className="form-control"
+          value={userID}
+          onChange={handleChangeUserId}
+          required
+          />
+        </div>)}
         <div className="form-group mb-3">
           <label htmlFor="userFirstName">First Name:</label>
           <input
@@ -162,18 +206,20 @@ const AddMember: React.FC = () => {
             required
           />
         </div>
-        <div className="form-group mb-3">
-          <label htmlFor="confirmPassword">Confirm Password:</label>
-          <input
-            type="password"
-            id="confirmPassword"
-            className="form-control"
-            value={confirmPassword}
-            onChange={handleChangeConfirmPassword}
-            required
-          />
-        </div>
-        <button type="submit" className="btn btn-primary">Sign Up</button>
+        {!id && (
+          <div className="form-group mb-3">
+            <label htmlFor="confirmPassword">Confirm Password:</label>
+            <input
+              type="password"
+              id="confirmPassword"
+              className="form-control"
+              value={confirmPassword}
+              onChange={handleChangeConfirmPassword}
+              required
+            />
+          </div>
+        )}
+        <button type="submit" className="btn btn-primary">{id ? 'Update User' : 'Sign Up'}</button>
       </form>
     </div>
   );

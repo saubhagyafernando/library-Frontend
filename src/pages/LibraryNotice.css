@@ -1,0 +1,50 @@
+.library-notices-container {
+    padding: 20px;
+    background-color: #f9f9f9;
+    text-align: center;
+  }
+  
+  .library-notices-heading {
+    font-size: 2.5rem;
+    color: #5f1515;
+    margin-bottom: 20px;
+  }
+  
+  .library-notices-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+  }
+  
+  .library-notices-table th,
+  .library-notices-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  .library-notices-table th {
+    background-color: #0b1b74;
+    color: white;
+    text-align: left;
+  }
+  
+  .library-notices-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .library-notices-table tr:hover {
+    background-color: #ddd;
+  }
+  
+  .library-notices-table th,
+  .library-notices-table td {
+    padding: 12px 15px;
+  }
+  
+  .library-notices-table th {
+    text-align: center;
+  }
+  
+  .library-notices-table td {
+    text-align: left;
+  }
