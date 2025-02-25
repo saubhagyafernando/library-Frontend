@@ -24,7 +24,13 @@ import UserLoginSignUp from './Components/UserLoginSignUp';
 import './assets/Library1.jpg';
 import './assets/Library2.jpg';
 import './assets/Library3.jpg';
-import './assets/library.jpg';
+import './assets/Library4.jpg';
+import './assets/Library5.jpg';
+import './assets/Library6.jpg';
+import './assets/Library7.jpg';
+import './assets/Library8.jpg';
+import './assets/Library9.jpg';
+import './assets/Library10.jpg';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 const App = () => {
