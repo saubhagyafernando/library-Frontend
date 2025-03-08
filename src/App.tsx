@@ -21,6 +21,7 @@ import Navbar from './pages/Navbar';
 import Footer from './pages/Footer';
 import AdminLoginSignUp from './Components/AdminLoginSignUp';
 import UserLoginSignUp from './Components/UserLoginSignUp';
+import Downloads from './pages/Downloads';
 import './assets/Library1.jpg';
 import './assets/Library2.jpg';
 import './assets/Library3.jpg';
@@ -59,6 +60,7 @@ const App = () => {
               <Route path="/update-admin/:adminId" element={<UpdateAdmin />} />
               <Route path="/add-book" element={<AddBook />} />
               <Route path="/update-book/:bookID" element={<UpdateBook />} />
+              <Route path="/downloads" element={<Downloads />} />
               <Route path="/update-list" element={<UpdateList />} />
               <Route path="/admin-list" element={<AdminList />} />
               <Route path="/member-list" element={<MemberList />} />

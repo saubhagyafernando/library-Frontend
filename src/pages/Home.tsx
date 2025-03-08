@@ -13,6 +13,15 @@ const Home: React.FC = () => {
       <Slideshow />
       <p>This system helps you manage your library efficiently.</p>
       
+      {/* Download Books Section */}
+      <div className="download-books">
+        <h2>Download Books Online</h2>
+        <p>Browse and download a wide range of books from our online collection.</p>
+        <div className="download-button-container">
+          <a href="/downloads" className="download-button">Download Books</a>
+        </div>
+      </div>
+      
       <div className="video-container">
         <iframe
           src="https://www.youtube.com/embed/ZgSQALiHatM"

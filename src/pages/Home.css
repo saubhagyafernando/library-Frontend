@@ -36,3 +36,48 @@
 .contact-details div {
   margin: 5px 0;
 }
+
+.download-books {
+  text-align: center; /* Centers text and button inside this container */
+  background-color: #f1f1f1;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+.download-books h2 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-bottom: 2px solid #007bff;
+  display: inline-block;
+  padding-bottom: 5px;
+}
+
+.download-books p {
+  color: #666;
+  font-size: 1rem;
+  margin-bottom: 20px;
+}
+
+.download-button-container {
+  display: flex;
+  justify-content: center; /* Centers button horizontally */
+  margin-top: 10px;
+}
+
+.download-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.download-button:hover {
+  background-color: #0056b3;
+}
