@@ -62,12 +62,31 @@ const UserLoginSignUp: React.FC = () => {
     setYearOfEnrollment(event.target.value);
   };
 
+  const validateEmail = (email: string) => {
+    const regex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+    return regex.test(email);
+  };
+
+  const validatePassword = (password: string) => {
+    return password.length >= 8;
+  };
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setErrorMessage('');
 
+    // Validate fields
     if (isLogin) {
-      // Login logic
+      // Login logic validation
+      if (!email || !userPassword) {
+        setErrorMessage('Email and Password are required!');
+        return;
+      }
+      if (!validateEmail(email)) {
+        setErrorMessage('Please enter a valid Gmail address.');
+        return;
+      }
+
       try {
         const user = await getUserByEmail(email);
         if (user && user.userPassword === userPassword) {
@@ -81,15 +100,27 @@ const UserLoginSignUp: React.FC = () => {
         setErrorMessage('An error occurred while logging in.');
       }
     } else {
-      // Sign up logic
-      if (userPassword !== confirmPassword) {
-        setErrorMessage('Passwords do not match');
-        return;
-      }
+      // Sign up logic validation
       if (!email || !userFirstName || !userLastName || !course || !department || !yearOfEnrollment || !userPassword) {
         setErrorMessage('All fields are required!');
         return;
       }
+
+      if (!validateEmail(email)) {
+        setErrorMessage('Please enter a valid Gmail address.');
+        return;
+      }
+
+      if (!validatePassword(userPassword)) {
+        setErrorMessage('Password must be at least 8 characters long.');
+        return;
+      }
+
+      if (userPassword !== confirmPassword) {
+        setErrorMessage('Passwords do not match');
+        return;
+      }
+
       try {
         await addUser({
           userFirstName,
