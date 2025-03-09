@@ -73,7 +73,7 @@ const SearchBook: React.FC = () => {
   };
 
   return (
-    <div className="search-book-container">
+    <div >
       <h2 className="text-center my-4">Search Book</h2>
 
       <div className="search-bar mb-4">
