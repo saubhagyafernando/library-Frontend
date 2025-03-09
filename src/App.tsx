@@ -22,6 +22,7 @@ import Footer from './pages/Footer';
 import AdminLoginSignUp from './Components/AdminLoginSignUp';
 import UserLoginSignUp from './Components/UserLoginSignUp';
 import Downloads from './pages/Downloads';
+import { FaWhatsapp } from 'react-icons/fa'; // Import WhatsApp icon
 import './assets/Library1.jpg';
 import './assets/Library2.jpg';
 import './assets/Library3.jpg';
@@ -35,6 +36,9 @@ import './assets/Library10.jpg';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 const App = () => {
+  // Replace this with your WhatsApp group link
+  const whatsappGroupLink = 'https://chat.whatsapp.com/FQWirG4OtfsGqxJxCUHzNy'; // Update with actual group link
+
   return (
     <AuthProvider>
       <Router>
@@ -42,7 +46,7 @@ const App = () => {
           <Navbar />
           <div className="flex-grow-1 main-content">
             <Routes>
-              <Route path="/" element={<Home />} />
+              {/* Main Routes */}
               <Route path="/" element={<Home />} />
               <Route path="/contact" element={<ContactUs />} />
               <Route path="/about-us" element={<AboutUs />} />
@@ -50,24 +54,43 @@ const App = () => {
               <Route path="/vision-and-mission" element={<VisionAndMission />} />
               <Route path="/library-hours" element={<LibraryHours />} />
               <Route path="/library-staff" element={<LibraryStaff />} />
-              <Route path="/contact" element={<ContactUs />} /> {/* Updated to use the ContactUs component */}
               <Route path="/search-book" element={<SearchBook />} />
+
+              {/* Admin Routes */}
               <Route path="/admin-login-signup" element={<AdminLoginSignUp />} />
+              <Route path="/add-admin" element={<AddAdmin />} />
+              <Route path="/update-admin/:adminId" element={<UpdateAdmin />} />
+              <Route path="/admin-list" element={<AdminList />} />
+
+              {/* Member Routes */}
               <Route path="/user-login-signup" element={<UserLoginSignUp />} />
               <Route path="/add-member" element={<AddMember />} />
               <Route path="/update-member/:userID" element={<UpdateMember />} />
-              <Route path="/add-admin" element={<AddAdmin />} />
-              <Route path="/update-admin/:adminId" element={<UpdateAdmin />} />
+              <Route path="/member-list" element={<MemberList />} />
+
+              {/* Book Routes */}
               <Route path="/add-book" element={<AddBook />} />
               <Route path="/update-book/:bookID" element={<UpdateBook />} />
+
+              {/* Downloads */}
               <Route path="/downloads" element={<Downloads />} />
+
+              {/* Update List */}
               <Route path="/update-list" element={<UpdateList />} />
-              <Route path="/admin-list" element={<AdminList />} />
-              <Route path="/member-list" element={<MemberList />} />
+
+              {/* Catch-all Route */}
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>
           </div>
+          
           <Footer />
+          
+          {/* Floating WhatsApp Chat Box */}
+          <div className="whatsapp-chat-box">
+            <a href={whatsappGroupLink} target="_blank" rel="noopener noreferrer">
+              <FaWhatsapp size={60} color="white" />
+            </a>
+          </div>
         </div>
       </Router>
     </AuthProvider>
