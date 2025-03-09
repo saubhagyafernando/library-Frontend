@@ -15,6 +15,8 @@ const SearchBook: React.FC = () => {
   const [books, setBooks] = useState<Book[]>([]);
   const [filteredBooks, setFilteredBooks] = useState<Book[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [selectedSubject, setSelectedSubject] = useState<string>(''); // Track subject for educational books
+  const [showSubjectDropdown, setShowSubjectDropdown] = useState<boolean>(false);
 
   useEffect(() => {
     fetchBooks();
@@ -22,7 +24,7 @@ const SearchBook: React.FC = () => {
 
   const fetchBooks = async () => {
     try {
-      const response = await fetch('http://localhost:8081/api/book');  // Updated API endpoint
+      const response = await fetch('http://localhost:8081/api/book');
       if (!response.ok) {
         throw new Error('Failed to fetch data');
       }
@@ -34,19 +36,30 @@ const SearchBook: React.FC = () => {
     }
   };
 
-  const handleSearch = () => {
+  const handleCategorySelect = (category: string) => {
+    setSelectedCategory(category);
+    setSelectedSubject(''); // Reset subject when changing category
+    setShowSubjectDropdown(category === 'educational books'); // Show subject dropdown only if "Educational Books" is selected
     const results = books.filter(
-      (book) =>
-        book.bookTittle.toLowerCase().includes(query.toLowerCase()) &&
-        (selectedCategory === 'all' || book.subject.toLowerCase() === selectedCategory.toLowerCase())
+      (book) => category === 'all' || book.subject.toLowerCase() === category.toLowerCase()
     );
     setFilteredBooks(results);
   };
 
-  const handleCategorySelect = (category: string) => {
-    setSelectedCategory(category);
+  const handleSubjectSelect = (subject: string) => {
+    setSelectedSubject(subject);
     const results = books.filter(
-      (book) => category === 'all' || book.subject.toLowerCase() === category.toLowerCase()
+      (book) => book.subject.toLowerCase() === subject.toLowerCase()
+    );
+    setFilteredBooks(results);
+  };
+
+  const handleSearch = () => {
+    const results = books.filter(
+      (book) =>
+        book.bookTittle.toLowerCase().includes(query.toLowerCase()) &&
+        (selectedCategory === 'all' || book.subject.toLowerCase() === selectedCategory.toLowerCase()) &&
+        (selectedCategory !== 'educational books' || book.subject.toLowerCase() === selectedSubject.toLowerCase())
     );
     setFilteredBooks(results);
   };
@@ -54,6 +67,8 @@ const SearchBook: React.FC = () => {
   const handleRefresh = () => {
     setQuery('');
     setSelectedCategory('all');
+    setSelectedSubject('');
+    setShowSubjectDropdown(false); // Hide dropdown when refreshing
     setFilteredBooks(books); // Reset to all books
   };
 
@@ -85,6 +100,32 @@ const SearchBook: React.FC = () => {
           <FaBookOpen /> All
         </div>
       </div>
+
+      {/* Dropdown for Educational Books subjects */}
+      {showSubjectDropdown && (
+        <div className="subject-dropdown-container mb-4">
+          <select
+            className="form-control"
+            value={selectedSubject}
+            onChange={(e) => handleSubjectSelect(e.target.value)}
+          >
+            <option value="">Select Subject</option>
+            <option value="Science">Science</option>
+            <option value="Maths">Maths</option>
+            <option value="Business">Business</option>
+            <option value="Art">Art</option>
+            <option value="Geometry">Geometry</option>
+            <option value="Law">Law</option>
+            <option value="Sinhala">Sinhala</option>
+            <option value="Religion">Religion</option>
+            <option value="computer science">computer science</option>
+            <option value="langauge">langauge</option>
+            <option value="manegment">manegment</option>
+            <option value="other">other</option>
+
+          </select>
+        </div>
+      )}
 
       <div className="button-row mb-4">
         <button onClick={handleSearch} className="btn btn-primary">
