@@ -1,0 +1,33 @@
+/* staff.css */
+
+.staff-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .staff-card {
+    width: 200px;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+  }
+  
+  .profile-pic {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  h2 {
+    font-size: 1.2rem;
+    margin: 10px 0;
+  }
+  
+  p {
+    font-size: 0.9rem;
+    color: #555;
+  }
+  

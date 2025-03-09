@@ -23,7 +23,7 @@ const AddBook: React.FC = () => {
     setPublicationDate(e.target.value);
   };
 
-  const handleChangeSubject = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeSubject = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSubject(e.target.value);
   };
 
@@ -103,14 +103,28 @@ const AddBook: React.FC = () => {
         </div>
         <div className="form-group mb-3">
           <label htmlFor="subject">Subject:</label>
-          <input
-            type="text"
+          <select
             id="subject"
             className="form-control"
             value={subject}
             onChange={handleChangeSubject}
             required
-          />
+          >
+            <option value="">Select Subject</option>
+            <option value="Science">Science</option>
+            <option value="Maths">Maths</option>
+            <option value="Business">Business</option>
+            <option value="Art">Art</option>
+            <option value="Geometry">Geometry</option>
+            <option value="Law">Law</option>
+            <option value="Sinhala">Sinhala</option>
+            <option value="Religion">Religion</option>
+            <option value="computer science">computer science</option>
+            <option value="langauge">langauge</option>
+            <option value="manegment">manegment</option>
+            <option value="other">other</option>
+
+          </select>
         </div>
         <div className="form-group mb-3">
           <label htmlFor="status">Status:</label>

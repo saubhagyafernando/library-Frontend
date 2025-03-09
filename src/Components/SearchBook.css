@@ -1,104 +1,48 @@
-/* Container styling */
+/* Center the main container */
 .search-book-container {
-  max-width: 1200px;
+  max-width: 800px;
   margin: 0 auto;
-  padding: 20px;
 }
 
-.search-bar {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.search-bar input {
-  padding: 10px;
-  font-size: 16px;
-}
-
-.search-bar button {
-  padding: 10px;
-  font-size: 16px;
-}
-
-/* Category button box styling */
-.category-buttons {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 15px;
-  margin-bottom: 20px;
-}
-
-.category-box {
-  background-color: #f8f9fa;
-  padding: 15px;
-  text-align: center;
-  font-size: 16px;
-  cursor: pointer;
-  border-radius: 5px;
-  border: 1px solid #ddd;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-.category-box:hover {
+/* Style category buttons */
+.category-buttons .category-box {
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 5px;
   background-color: #007bff;
   color: white;
-  transform: scale(1.05);
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-.category-box svg {
-  margin-right: 8px;
+.category-buttons .category-box:hover {
+  background-color: #0056b3;
 }
 
-/* Button row (Search and Refresh) styling */
-.button-row {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  margin-bottom: 20px;
+/* Style subject dropdown */
+.subject-dropdown-container {
+  margin-top: 10px;
 }
 
-.button-row .btn {
-  padding: 10px 20px;
-  font-size: 16px;
-  width: 48%;
-}
-
-/* Refresh button */
-.btn-secondary {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-/* Table styling */
-.table {
+select.form-control {
   width: 100%;
-  border-collapse: collapse;
+  padding: 10px;
+  border-radius: 5px;
 }
 
-.table th, .table td {
-  padding: 12px;
-  text-align: left;
+/* Style table */
+table {
+  width: 100%;
+  margin-top: 20px;
 }
 
-.table-dark {
+th, td {
+  text-align: center;
+  padding: 8px;
+}
+
+table .table-dark {
   background-color: #343a40;
   color: white;
-}
-
-.table-bordered {
-  border: 1px solid #ddd;
-}
-
-.table-striped tbody tr:nth-child(odd) {
-  background-color: #f9f9f9;
-}
-
-.text-center {
-  text-align: center;
-}
-
-.text-primary {
-  color: #007bff;
 }
