@@ -121,7 +121,7 @@ const SearchBook: React.FC = () => {
             <option value="computer science">computer science</option>
             <option value="langauge">langauge</option>
             <option value="manegment">manegment</option>
-            <option value="other">other</option>
+            <option value="educational books">other</option>
 
           </select>
         </div>
@@ -143,7 +143,7 @@ const SearchBook: React.FC = () => {
             <th>Title</th>
             <th>ISBN</th>
             <th>Publication Date</th>
-            <th>Subject</th>
+            <th>Category</th>
             <th>Status</th>
           </tr>
         </thead>

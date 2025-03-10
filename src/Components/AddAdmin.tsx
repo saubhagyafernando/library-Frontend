@@ -27,6 +27,15 @@ const AddAdmin: React.FC = () => {
     setConfirmPassword(event.target.value);
   };
 
+  const validateEmail = (email: string) => {
+    const regex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+    return regex.test(email);
+  };
+
+  const validatePassword = (password: string) => {
+    return password.length >= 8;
+  };
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (password !== confirmPassword) {
@@ -35,6 +44,14 @@ const AddAdmin: React.FC = () => {
     }
     if (!adminName || !adminEmail || !password || !confirmPassword) {
       setErrorMessage('All fields are required!');
+      return;
+    }
+    if (!validateEmail(adminEmail)) {
+      setErrorMessage('Please enter a valid Gmail address.');
+      return;
+    }
+    if (!validatePassword(password)) {
+      setErrorMessage('Password must be at least 8 characters long.');
       return;
     }
 
